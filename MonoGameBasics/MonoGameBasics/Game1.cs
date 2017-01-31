@@ -22,6 +22,7 @@ namespace MonoGameBasics
         Vector2 tlouPosition;
         Vector2 wdPosition;
 
+        //Constructor
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -75,7 +76,8 @@ namespace MonoGameBasics
                 Exit();
 
             // TODO: Add your update logic here
-            //Moving Image Positions, images in front move faster than those in the background
+            //Moving Image Positions
+            //images in front MOVE FASTER than those in the background
             unchPosition.X += 3.2f;
 
             tlouPosition.X += 3.7f;
@@ -83,6 +85,7 @@ namespace MonoGameBasics
             wdPosition.X += 4.2f;
 
             //ScreenWrap
+            //move images to the start of the viewport once they reach the end
             if (unchPosition.X > GraphicsDevice.Viewport.Width)
             {
                 unchPosition.X = -620;    //Width of the Uncharted Image            
@@ -97,7 +100,6 @@ namespace MonoGameBasics
             {
                 wdPosition.X = -750;    //Width of the Watch Dogs Image 
             }
-
 
             base.Update(gameTime);
         }

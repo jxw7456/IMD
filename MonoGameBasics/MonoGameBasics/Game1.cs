@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Media;
 //NAME: JaJuan Webster
 //INSTRUCTOR: Chris Cascioli
 //MonoGame Basics
-//PERSONAL
+
 namespace MonoGameBasics
 {
     /// <summary>
@@ -29,7 +29,7 @@ namespace MonoGameBasics
         Vector2 marioPosition;
         Vector2 luigiPosition;
         Vector2 bowserPosition;
-        Song yoshi;
+        Song backgroundMusic;
 
         //Constructor
         public Game1()
@@ -65,9 +65,9 @@ namespace MonoGameBasics
             mario = Content.Load<Texture2D>("mario");
             luigi = Content.Load<Texture2D>("luigi");
             bowser = Content.Load<Texture2D>("bowser");
-            yoshi = Content.Load<Song>("music");
-            MediaPlayer.Volume = 0.2f;
-            MediaPlayer.Play(yoshi);
+            backgroundMusic = Content.Load<Song>("music");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.Volume = 0.1f;
             // TODO: use this.Content to load your game content here
         }
 

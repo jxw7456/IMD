@@ -25,6 +25,12 @@
 /processorParam:TextureFormat=Color
 /build:background.png
 
+#begin Arial14Bold.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Arial14Bold.spritefont
+
 #begin luigi.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,10 +42,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:luigi.png
-
-#begin Arial14Bold.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Arial14Bold.spritefont
 

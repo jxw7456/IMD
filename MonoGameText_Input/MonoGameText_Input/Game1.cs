@@ -1,28 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-//NAME: JaJuan Webster
-//INSTRUCTOR: Chris Cascioli
-//MonoGame Text & Input
 
-namespace Webster_MonoGame_Text_Input
+namespace MonoGameText_Input
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
-        //Attributes
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont arialBold;
-        Texture2D background;
+        SpriteFont arial;
         Texture2D luigi;
-        Vector2 luigiPos;
-        Vector2 mousePos;
-        
-        //Constructor
+        Vector2 luigiPosition;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,9 +30,8 @@ namespace Webster_MonoGame_Text_Input
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
             base.Initialize();
-            luigiPos.X = 300;   //Set image at Center of the window
-            luigiPos.Y = 150;
         }
 
         /// <summary>
@@ -51,9 +42,10 @@ namespace Webster_MonoGame_Text_Input
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            arialBold = Content.Load<SpriteFont>("Arial14Bold");
-            background = Content.Load<Texture2D>("background");
+            arial = Content.Load<SpriteFont>("Arial14");
             luigi = Content.Load<Texture2D>("luigi");
+
+            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -75,36 +67,7 @@ namespace Webster_MonoGame_Text_Input
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            KeyboardState kb = Keyboard.GetState();
-            MouseState ms = Mouse.GetState();
-            
-            //gets the mouse position
-            if (ms.LeftButton == ButtonState.Pressed)
-            {
-                mousePos.X = ms.X;
-                mousePos.Y = ms.Y;
-            }
-
-            //gets keyboard imput
-            if (kb.IsKeyDown(Keys.W))
-            {
-                luigiPos.Y -= 5.0f;
-            }
-
-            if (kb.IsKeyDown(Keys.A))
-            {
-                luigiPos.X -= 5.0f;
-            }
-
-            if (kb.IsKeyDown(Keys.S))
-            {
-                luigiPos.Y += 5.0f;
-            }
-
-            if (kb.IsKeyDown(Keys.D))
-            {
-                luigiPos.X += 5.0f;
-            }
+            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -117,20 +80,12 @@ namespace Webster_MonoGame_Text_Input
         {
             GraphicsDevice.Clear(Color.Beige);
 
+            // TODO: Add your drawing code here
             spriteBatch.Begin();
-                        
-            spriteBatch.Draw(background, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
-            spriteBatch.Draw(luigi, new Vector2(luigiPos.X, luigiPos.Y), Color.White);
-            spriteBatch.DrawString(arialBold, "Image X: " + luigiPos.X + "\nImage Y: " + luigiPos.Y, new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(arialBold, "Mouse X: " + mousePos.X + "\nMouse Y: " + mousePos.Y, new Vector2(0, 45), Color.White);
-
-            //Statement if the mouse position is "inside" the image
-            if (mousePos.X >= luigiPos.X && mousePos.X <= luigi.Width || mousePos.Y >= luigiPos.Y && mousePos.Y <= luigi.Height)
-            {
-                spriteBatch.DrawString(arialBold, "Super Mario Bros.", new Vector2(luigiPos.X, luigiPos.Y), Color.Red);
-            }
+            spriteBatch.Draw(luigi, new Rectangle((GraphicsDevice.Viewport.Width / 2), (GraphicsDevice.Viewport.Height / 2), 200, 200), Color.White);
 
             spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

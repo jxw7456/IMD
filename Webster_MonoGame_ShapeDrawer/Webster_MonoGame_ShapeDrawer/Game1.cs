@@ -80,7 +80,13 @@ namespace Webster_MonoGame_ShapeDrawer
 
             spriteBatch.Begin();
 
-            shapeDrawer.DrawLine(100, 100, 100, 100, 5, Color.White);
+            shapeDrawer.DrawLine(200, 200, 100, 100, 5, Color.Maroon);
+
+            shapeDrawer.DrawPoint(400, 50, Color.Green);
+
+            shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Bisque);
+
+            shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.Blue);
 
             spriteBatch.End();
 

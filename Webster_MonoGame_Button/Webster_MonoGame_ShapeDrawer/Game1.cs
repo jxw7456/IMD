@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 //JaJuan Webster
 //Professor Cascioli
 //MonoGame Button
@@ -15,6 +16,9 @@ namespace Webster_MonoGame_Button
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ShapeDrawer shapeDrawer;
+        Texture2D img;
+        Button button;
+        MouseState ms;
 
         public Game1()
         {
@@ -44,6 +48,9 @@ namespace Webster_MonoGame_Button
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             shapeDrawer = new ShapeDrawer(spriteBatch, GraphicsDevice);
+            ms = Mouse.GetState();
+            img = Content.Load<Texture2D>("button");
+            button = new Button(spriteBatch, img, Color.White, 20, 20);
         }
 
         /// <summary>
@@ -65,7 +72,13 @@ namespace Webster_MonoGame_Button
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            if (button.MouseInsideButton() == true)
+            {
+                if (button.Clicked() == true)
+                {
+                    button.color = Color.Blue;
+                }
+            }            
 
             base.Update(gameTime);
         }
@@ -80,6 +93,7 @@ namespace Webster_MonoGame_Button
 
             spriteBatch.Begin();
 
+            /*
             shapeDrawer.DrawLine(200, 200, 100, 100, 5, Color.Maroon);
 
             shapeDrawer.DrawPoint(400, 50, Color.Green);
@@ -87,7 +101,10 @@ namespace Webster_MonoGame_Button
             shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Bisque);
 
             shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.Blue);
+            */
 
+            button.Draw();           
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

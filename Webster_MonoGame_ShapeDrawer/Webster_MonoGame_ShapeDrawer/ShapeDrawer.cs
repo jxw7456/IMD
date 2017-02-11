@@ -47,7 +47,7 @@ namespace Webster_MonoGame_ShapeDrawer
         }
 
         /// <summary>
-        /// Draws an small point on the screen.
+        /// Draws an small point on the screen. Points are created by 1*1 rectangles
         /// </summary>
         /// <param name="x">x coord for the point</param>
         /// <param name="y">y coord for the point</param>
@@ -55,7 +55,7 @@ namespace Webster_MonoGame_ShapeDrawer
         public void DrawPoint(int x, int y, Color color)
         {
             //Create the rectangle with the proper width and height so it comes out as a point
-            Rectangle rectToDraw = new Rectangle(x, y, 3, 3);
+            Rectangle rectToDraw = new Rectangle(x, y, 1, 1);
 
             //Use the Draw() method
             spriteBatch.Draw(pixel, rectToDraw, color);

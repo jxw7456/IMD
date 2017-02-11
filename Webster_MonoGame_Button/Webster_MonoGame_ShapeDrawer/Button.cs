@@ -15,6 +15,7 @@ namespace Webster_MonoGame_Button
         public Rectangle rectangle;
         public Color color;
 
+        //Constructor
         public Button(SpriteBatch sb, Texture2D img, Color col, int x, int y)
         {
             spriteBatch = sb;
@@ -23,12 +24,16 @@ namespace Webster_MonoGame_Button
             color = col;
         }
 
+        /// <summary>
+        /// returns a bool that determines whether the mouse cursor is inside the button or not
+        /// </summary>
+        /// <returns>boolean</returns>
         public bool MouseInsideButton()
         {
             MouseState ms = Mouse.GetState();
             
             //Statement if the mouse position is "inside" the button
-            if (ms.X >= rectangle.X && ms.X <= rectangle.Right || ms.Y >= rectangle.Y && ms.Y <= rectangle.Bottom)
+            if (ms.X >= rectangle.X && ms.X <= rectangle.Right && ms.Y >= rectangle.Y && ms.Y <= rectangle.Bottom)
             {
                 return true;
             }
@@ -36,22 +41,25 @@ namespace Webster_MonoGame_Button
             return false;
         }
 
+        /// <summary>
+        /// returns a bool that determines if the mouse left button is being clicked
+        /// </summary>
+        /// <returns>boolean</returns>
         public bool Clicked()
         {
             MouseState ms = Mouse.GetState();
 
-            if (ms.LeftButton == ButtonState.Pressed)
+            if (ms.LeftButton == ButtonState.Pressed && MouseInsideButton() == true)
             {
-                //Statement if the mouse position is "inside" the button
-                if (ms.X >= rectangle.X && ms.X <= rectangle.Right || ms.Y >= rectangle.Y && ms.Y <= rectangle.Bottom)
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
         }
 
+        /// <summary>
+        /// draws the button image
+        /// </summary>
         public void Draw()
         {
             spriteBatch.Draw(image, rectangle, color);

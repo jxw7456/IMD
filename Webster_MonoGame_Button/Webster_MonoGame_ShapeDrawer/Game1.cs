@@ -18,7 +18,6 @@ namespace Webster_MonoGame_Button
         ShapeDrawer shapeDrawer;
         Texture2D img;
         Button button;
-        MouseState ms;
 
         public Game1()
         {
@@ -48,7 +47,6 @@ namespace Webster_MonoGame_Button
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             shapeDrawer = new ShapeDrawer(spriteBatch, GraphicsDevice);
-            ms = Mouse.GetState();
             img = Content.Load<Texture2D>("button");
             button = new Button(spriteBatch, img, Color.White, 20, 20);
         }
@@ -72,14 +70,19 @@ namespace Webster_MonoGame_Button
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (button.MouseInsideButton() == true)
-            {
-                if (button.Clicked() == true)
-                {
-                    button.color = Color.Blue;
-                }
-            }            
+            this.IsMouseVisible = true;
 
+            //Button will ONLY change colors if the cursor is being clicked AND is inside of the button image
+            if (button.Clicked() == true)
+            {
+                button.color = Color.Purple;
+            }
+
+            else
+            {
+                button.color = Color.White;
+            }
+            
             base.Update(gameTime);
         }
 
@@ -92,19 +95,22 @@ namespace Webster_MonoGame_Button
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
-            /*
-            shapeDrawer.DrawLine(200, 200, 100, 100, 5, Color.Maroon);
-
-            shapeDrawer.DrawPoint(400, 50, Color.Green);
-
-            shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Bisque);
-
-            shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.Blue);
-            */
-
-            button.Draw();           
             
+            //Draw the shapes from the last exercise
+            if (button.Clicked() == true)
+            {
+                shapeDrawer.DrawLine(500, 200, 100, 100, 5, Color.Maroon);
+
+                shapeDrawer.DrawPoint(400, 50, Color.Green);
+
+                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Bisque);
+
+                shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.Blue);
+            }      
+            
+            //Draws the button image
+            button.Draw();
+
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 //JaJuan Webster
 //Professor Cascioli
 //MonoGame Random
@@ -17,6 +18,14 @@ namespace Webster_MonoGame_Random
         ShapeDrawer shapeDrawer;
         Texture2D img;
         Button button;
+        Random rng;
+        GameState gameState;
+
+        enum GameState
+        {
+            TAB = Keys.Tab,
+            SHIFT = Keys.LeftShift
+        }
 
         public Game1()
         {
@@ -48,6 +57,8 @@ namespace Webster_MonoGame_Random
             shapeDrawer = new ShapeDrawer(spriteBatch, GraphicsDevice);
             img = Content.Load<Texture2D>("button");
             button = new Button(spriteBatch, img, Color.White, 20, 20);
+            rng = new Random();
+            gameState = GameState.TAB;
         }
 
         /// <summary>
@@ -68,20 +79,51 @@ namespace Webster_MonoGame_Random
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            this.IsMouseVisible = true;
-
-            //Button will ONLY change colors if the cursor is being clicked AND is inside of the button image
-            if (button.Clicked() == true)
-            {
-                button.color = Color.Purple;
-            }
-
-            else
-            {
-                button.color = Color.White;
-            }
             
+            //TAB Game State with multi color changes
+            if (gameState == GameState.TAB)
+            {
+                //Button will ONLY change colors if the cursor is being clicked AND is inside of the button image
+                if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
+                {
+                    button.color = Color.Blue;
+                }
+
+                else if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) < 4.5)
+                {
+                    button.color = Color.IndianRed;
+                }
+
+                else if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) == 4.5)
+                {
+                    button.color = Color.Gold;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                {
+                    gameState = GameState.SHIFT;
+                }
+            }
+
+            //SHIFT Game State with Shapes
+            if (gameState == GameState.SHIFT)
+            {
+                if (RandomExtensionMethods.Fade(2.5) < 0.5)
+                {
+                    button.color = Color.Purple;
+                }
+
+                else
+                {
+                    button.color = Color.Green;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Tab))
+                {
+                    gameState = GameState.TAB;
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -94,19 +136,18 @@ namespace Webster_MonoGame_Random
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            
-            //Draw the shapes from the last exercise
-            if (button.Clicked() == true)
+
+            if (gameState == GameState.SHIFT)
             {
                 shapeDrawer.DrawLine(500, 200, 100, 100, 5, Color.Maroon);
 
-                shapeDrawer.DrawPoint(400, 50, Color.Green);
+                shapeDrawer.DrawPoint(400, 50, Color.GhostWhite);
 
-                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Bisque);
+                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Fuchsia);
 
-                shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.Blue);
-            }      
-            
+                shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.DarkGoldenrod);
+            }
+
             //Draws the button image
             button.Draw();
 

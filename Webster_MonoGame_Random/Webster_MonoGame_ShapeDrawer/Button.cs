@@ -31,7 +31,7 @@ namespace Webster_MonoGame_Random
         public bool MouseInsideButton()
         {
             MouseState ms = Mouse.GetState();
-            
+
             //Statement if the mouse position is "inside" the button
             if (ms.X >= rectangle.X && ms.X <= rectangle.Right && ms.Y >= rectangle.Y && ms.Y <= rectangle.Bottom)
             {

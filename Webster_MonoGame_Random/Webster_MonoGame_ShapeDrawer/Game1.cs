@@ -79,7 +79,7 @@ namespace Webster_MonoGame_Random
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+
             //TAB Game State with multi color changes
             if (gameState == GameState.TAB)
             {
@@ -94,11 +94,6 @@ namespace Webster_MonoGame_Random
                     button.color = Color.IndianRed;
                 }
 
-                else if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) == 4.5)
-                {
-                    button.color = Color.Gold;
-                }
-
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     gameState = GameState.SHIFT;
@@ -108,12 +103,14 @@ namespace Webster_MonoGame_Random
             //SHIFT Game State with Shapes
             if (gameState == GameState.SHIFT)
             {
-                if (RandomExtensionMethods.Fade(2.5) < 0.5)
+                double pn = RandomExtensionMethods.PerlinNoise(rng, 0.001);
+
+                if (pn > 0.5)
                 {
                     button.color = Color.Purple;
                 }
 
-                else
+                else if (pn < 0.5)
                 {
                     button.color = Color.Green;
                 }
@@ -139,11 +136,11 @@ namespace Webster_MonoGame_Random
 
             if (gameState == GameState.SHIFT)
             {
-                shapeDrawer.DrawLine(500, 200, 100, 100, 5, Color.Maroon);
+                shapeDrawer.DrawLine(500, 200, 100, 100, 5, Color.Fuchsia);
 
                 shapeDrawer.DrawPoint(400, 50, Color.GhostWhite);
 
-                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Fuchsia);
+                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Maroon);
 
                 shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.DarkGoldenrod);
             }

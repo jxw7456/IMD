@@ -13,6 +13,7 @@ namespace Webster_MonoGame_Random
     /// </summary>
     public class Game1 : Game
     {
+        //Attributes
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ShapeDrawer shapeDrawer;
@@ -52,7 +53,6 @@ namespace Webster_MonoGame_Random
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             shapeDrawer = new ShapeDrawer(spriteBatch, GraphicsDevice);
             img = Content.Load<Texture2D>("button");
@@ -80,7 +80,7 @@ namespace Webster_MonoGame_Random
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //TAB Game State with multi color changes
+            //TAB Game State with multi color changes & shapes using the "Gaussian" Random Algorithm
             if (gameState == GameState.TAB)
             {
                 //Button will ONLY change colors if the cursor is being clicked AND is inside of the button image
@@ -94,16 +94,17 @@ namespace Webster_MonoGame_Random
                     button.color = Color.IndianRed;
                 }
 
+                //changes the game state to SHIFT
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     gameState = GameState.SHIFT;
                 }
             }
 
-            //SHIFT Game State with Shapes
+            //SHIFT Game State with multi color changes & shapes using the "Perlin Noise" Random Algorithm
             if (gameState == GameState.SHIFT)
             {
-                double pn = RandomExtensionMethods.PerlinNoise(rng, 0.001);
+                double pn = RandomExtensionMethods.PerlinNoise(rng, rng.NextDouble());
 
                 if (pn > 0.5)
                 {
@@ -115,6 +116,7 @@ namespace Webster_MonoGame_Random
                     button.color = Color.Green;
                 }
 
+                //changes the game state to TAB
                 if (Keyboard.GetState().IsKeyDown(Keys.Tab))
                 {
                     gameState = GameState.TAB;
@@ -134,15 +136,20 @@ namespace Webster_MonoGame_Random
 
             spriteBatch.Begin();
 
+            //Draws separate Rect shapes on TAB game state
+            if (gameState == GameState.TAB)
+            {
+                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Maroon);
+
+                shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.DarkGoldenrod);
+            }
+
+            //Draws Line and Point on SHIFT game state
             if (gameState == GameState.SHIFT)
             {
                 shapeDrawer.DrawLine(500, 200, 100, 100, 5, Color.Fuchsia);
 
                 shapeDrawer.DrawPoint(400, 50, Color.GhostWhite);
-
-                shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Maroon);
-
-                shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.DarkGoldenrod);
             }
 
             //Draws the button image

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 //JaJuan Webster
 //Professor Cascioli
 //MonoGame ShapeDrawer
@@ -15,6 +16,7 @@ namespace Webster_MonoGame_ShapeDrawer
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ShapeDrawer shapeDrawer;
+        Random rand;
 
         public Game1()
         {
@@ -30,8 +32,8 @@ namespace Webster_MonoGame_ShapeDrawer
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            IsMouseVisible = true;
+            rand = new Random();
             base.Initialize();
         }
 
@@ -52,7 +54,7 @@ namespace Webster_MonoGame_ShapeDrawer
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
@@ -65,8 +67,7 @@ namespace Webster_MonoGame_ShapeDrawer
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-
+            
             base.Update(gameTime);
         }
 
@@ -80,13 +81,17 @@ namespace Webster_MonoGame_ShapeDrawer
 
             spriteBatch.Begin();
 
-            shapeDrawer.DrawLine(200, 200, 100, 100, 5, Color.Maroon);
+            //Mouse State
+            MouseState ms = Mouse.GetState();
 
-            shapeDrawer.DrawPoint(400, 50, Color.Green);
+            //Vector that represents pointing at the mouse cursor
+            Vector2 towardsMouse = new Vector2(ms.X - 400, ms.Y - 200);
 
-            shapeDrawer.DrawRectFilled(300, 400, 50, 50, Color.Bisque);
+            //Normalize (length of 1) and stretch to length of 50
+            towardsMouse.Normalize();
+            towardsMouse *= 50;
 
-            shapeDrawer.DrawRectOutline(500, 200, 50, 50, Color.Blue);
+            shapeDrawer.DrawLine(400, 200, (int)towardsMouse.X, (int)towardsMouse.Y, 3, Color.White);
 
             spriteBatch.End();
 

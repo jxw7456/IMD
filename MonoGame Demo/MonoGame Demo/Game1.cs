@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 //NAME: JaJuan Webster
 //INSTRUCTOR: Chris Cascioli
 //MonoGame Demo
@@ -15,6 +16,7 @@ namespace MonoGameDemo
         //Fields
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Random rand;
 
         //Constructor
         public Game1()
@@ -31,7 +33,8 @@ namespace MonoGameDemo
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            rand = new Random();
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -80,7 +83,12 @@ namespace MonoGameDemo
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            //Get the mouse state
+            MouseState ms = Mouse.GetState();
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

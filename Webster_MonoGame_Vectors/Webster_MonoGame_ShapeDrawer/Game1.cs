@@ -74,46 +74,106 @@ namespace Webster_MonoGame_Vectors
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            //Mouse State
+            MouseState ms = Mouse.GetState();
+
             //Set previous position to current position
             previousPos = currentPos;
                         
             //Random direction
             int directon = rand.Next(8);
-                        
-            switch (directon)
+            
+            //Random direction on Left Click
+            int directonLeft = rand.Next(9);
+
+            //If statement if Left Mouse Button is CLICKED
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                case 0:
-                    dir = new Vector2(0, -1);
-                    break;
+                switch (directonLeft)
+                {
+                    case 0:
+                        dir = new Vector2(0, -1);
+                        break;
 
-                case 1:
-                    dir = new Vector2(1, -2);
-                    break;
+                    case 1:
+                        dir = new Vector2(1, -2);
+                        break;
 
-                case 2:
-                    dir = new Vector2(1, 0);
-                    break;
+                    case 2:
+                        dir = new Vector2(1, 0);
+                        break;
 
-                case 3:
-                    dir = new Vector2(1, 2);
-                    break;
+                    case 3:
+                        dir = new Vector2(1, 2);
+                        break;
 
-                case 4:
-                    dir = new Vector2(0, 1);
-                    break;
+                    case 4:
+                        dir = new Vector2(0, 1);
+                        break;
 
-                case 5:
-                    dir = new Vector2(-1, 2);
-                    break;
+                    case 5:
+                        dir = new Vector2(-1, 2);
+                        break;
 
-                case 6:
-                    dir = new Vector2(-1, 0);
-                    break;
+                    case 6:
+                        dir = new Vector2(-1, 0);
+                        break;
 
-                case 7:
-                    dir = new Vector2(-1, -2);                                      
-                    break;
+                    case 7:
+                        dir = new Vector2(-1, -2);
+                        break;
+
+                    case 8:
+                        dir = new Vector2(ms.X, ms.Y);
+                        break;
+                }
             }
+
+            //If statement if Right Mouse Button is CLICKED
+            else if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                dir = new Vector2(ms.X, ms.Y);
+            }
+
+            //If statement if NO Mouse Button is CLICKED
+            else
+            {
+                switch (directon)
+                {
+                    case 0:
+                        dir = new Vector2(0, -1);
+                        break;
+
+                    case 1:
+                        dir = new Vector2(1, -2);
+                        break;
+
+                    case 2:
+                        dir = new Vector2(1, 0);
+                        break;
+
+                    case 3:
+                        dir = new Vector2(1, 2);
+                        break;
+
+                    case 4:
+                        dir = new Vector2(0, 1);
+                        break;
+
+                    case 5:
+                        dir = new Vector2(-1, 2);
+                        break;
+
+                    case 6:
+                        dir = new Vector2(-1, 0);
+                        break;
+
+                    case 7:
+                        dir = new Vector2(-1, -2);
+                        break;
+                }
+            }            
 
             //Normalize direction
             dir.Normalize();
@@ -137,7 +197,7 @@ namespace Webster_MonoGame_Vectors
             {
                 speed -= 0.1f;
             }
-
+            
             base.Update(gameTime);
         }
 
@@ -150,18 +210,8 @@ namespace Webster_MonoGame_Vectors
             //GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
-            //Mouse State
-            MouseState ms = Mouse.GetState();
-
-            //Vector that represents pointing at the mouse cursor
-            Vector2 towardsMouse = new Vector2(ms.X - 400, ms.Y - 200);
-
-            //Normalize (length of 1) and stretch to length of 50
-            towardsMouse.Normalize();
-            towardsMouse *= 50;
-
-            shapeDrawer.DrawLine(400, 200, (400 + (int)towardsMouse.X), (200 + (int)towardsMouse.Y), 3, Color.White);
+                        
+            shapeDrawer.DrawLine(400, 200, (400 + (int)currentPos.X), (200 + (int)currentPos.Y), 3, Color.White);
 
             spriteBatch.End();
 

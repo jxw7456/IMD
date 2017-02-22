@@ -20,10 +20,7 @@ namespace Webster_MonoGame_Vectors
         Vector2 currentPos;
         Vector2 previousPos;
         float speed;
-
-        Vector2 dir; //Vector direction to determine from random
-        
-
+        Vector2 dir; //Vector direction to determine from random 
 
         public Game1()
         {
@@ -39,9 +36,10 @@ namespace Webster_MonoGame_Vectors
         /// </summary>
         protected override void Initialize()
         {
+            currentPos = new Vector2(200, 200); //Starting position on lines
             rand = new Random();
             IsMouseVisible = true;
-            speed = 5.0f;          
+            speed = 5.0f;    
             base.Initialize();
         }
 
@@ -75,11 +73,11 @@ namespace Webster_MonoGame_Vectors
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //Mouse State
-            MouseState ms = Mouse.GetState();
-
             //Set previous position to current position
             previousPos = currentPos;
+
+            //Mouse State
+            MouseState ms = Mouse.GetState();            
                         
             //Random direction
             int directon = rand.Next(8);
@@ -97,7 +95,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 1:
-                        dir = new Vector2(1, -2);
+                        dir = new Vector2(1, -1);
                         break;
 
                     case 2:
@@ -105,7 +103,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 3:
-                        dir = new Vector2(1, 2);
+                        dir = new Vector2(1, 1);
                         break;
 
                     case 4:
@@ -113,7 +111,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 5:
-                        dir = new Vector2(-1, 2);
+                        dir = new Vector2(-1, 1);
                         break;
 
                     case 6:
@@ -121,7 +119,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 7:
-                        dir = new Vector2(-1, -2);
+                        dir = new Vector2(-1, -1);
                         break;
 
                     case 8:
@@ -146,7 +144,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 1:
-                        dir = new Vector2(1, -2);
+                        dir = new Vector2(1, -1);
                         break;
 
                     case 2:
@@ -154,7 +152,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 3:
-                        dir = new Vector2(1, 2);
+                        dir = new Vector2(1, 1);
                         break;
 
                     case 4:
@@ -162,7 +160,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 5:
-                        dir = new Vector2(-1, 2);
+                        dir = new Vector2(-1, 1);
                         break;
 
                     case 6:
@@ -170,7 +168,7 @@ namespace Webster_MonoGame_Vectors
                         break;
 
                     case 7:
-                        dir = new Vector2(-1, -2);
+                        dir = new Vector2(-1, -1);
                         break;
                 }
             }            
@@ -181,10 +179,9 @@ namespace Webster_MonoGame_Vectors
             //Multiple direction by the current speed
             dir.X = dir.X * speed;
             dir.Y = dir.Y * speed;
-
+                        
             //add random direction to current position to get a new position
-            currentPos.X = currentPos.X + dir.X;
-            currentPos.Y = currentPos.Y + dir.Y;
+            currentPos = currentPos + dir;
 
             //Increase speed if UP arrow key is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Up) == true)
@@ -211,7 +208,7 @@ namespace Webster_MonoGame_Vectors
 
             spriteBatch.Begin();
                         
-            shapeDrawer.DrawLine(400, 200, (400 + (int)currentPos.X), (200 + (int)currentPos.Y), 3, Color.White);
+            shapeDrawer.DrawLine((int)previousPos.X, (int)previousPos.Y, ((int)previousPos.X + (int)currentPos.X), ((int)previousPos.Y + (int)currentPos.Y), 3, Color.White);
 
             spriteBatch.End();
 

@@ -15,7 +15,7 @@ namespace Webster_HW_Project1_Spaceship
         float maxSpeed = 10;
         float acceleration;
         float rotation;
-        private Vector2 position;
+        public Vector2 position;
         Vector2 direction;
         Vector2 forward;
         Vector2 velocity;
@@ -26,12 +26,10 @@ namespace Webster_HW_Project1_Spaceship
         {
             speed = 0.0f;
             acceleration = 1.0f;
-            position = new Vector2(0, 0);            
-            direction = new Vector2(1, 0);            
+            position = new Vector2(0, 0);
+            direction = new Vector2(1, 0);
             velocity = direction * speed;
-            
-            //x = cos(rotation)
-            //y = sin(rotation) 
+            rotation = 0.0f;
             forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
         }
 
@@ -43,25 +41,25 @@ namespace Webster_HW_Project1_Spaceship
 
         public void Update()
         {
-            //Increase speed
-            speed += acceleration;
-            if (speed > maxSpeed)
-            {
-                speed = maxSpeed;
-            }
-
             //Calculate new velocity
             direction.Normalize();
-            velocity = direction * speed;            
+            velocity = direction * speed;
 
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
+                position += forward;
+                //Increase speed
+                speed += acceleration;
+                if (speed > maxSpeed)
+                {
+                    speed = maxSpeed;
+                }
+
                 //Movement
                 position.X += 5.0f;
-                position.Y -= 5.0f;                
+                position.Y -= 5.0f;
                 position += velocity;
-                position += forward * speed;
             }
 
             //Decelerate slowly
@@ -86,13 +84,13 @@ namespace Webster_HW_Project1_Spaceship
             if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 speed *= 0.5f;
-            }            
+            }
         }
 
         //Draw the ship
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(ship, position, color);
+            spriteBatch.Draw(ship, position, null, null, new Vector2(0, 0), rotation, null, color, SpriteEffects.None, 0);
         }
     }
 }

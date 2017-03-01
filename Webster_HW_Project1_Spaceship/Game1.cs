@@ -74,7 +74,28 @@ namespace Webster_HW_Project1_Spaceship
                 Exit();
 
             spaceShip.Update();
-            
+
+            //Screenwrap
+            if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))
+            {
+                spaceShip.position.X = -5;
+            }
+
+            else if (spaceShip.position.X < -5)
+            {
+                spaceShip.position.X = (GraphicsDevice.Viewport.Width + 5);
+            }
+
+            if (spaceShip.position.Y > (GraphicsDevice.Viewport.Height + 5))
+            {
+                spaceShip.position.Y = -5;
+            }
+
+            else if (spaceShip.position.Y < -5)
+            {
+                spaceShip.position.Y = (GraphicsDevice.Viewport.Height + 5);
+            }
+
             base.Update(gameTime);
         }
 
@@ -87,7 +108,7 @@ namespace Webster_HW_Project1_Spaceship
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-                                   
+
             //Drawing the background image using the Random Gaussian
             if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
             {

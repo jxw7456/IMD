@@ -73,7 +73,7 @@ namespace Webster_HW_Project1_Spaceship
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            spaceShip.Update();
+            spaceShip.Update(gameTime);
 
             //Screenwrap
             if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))

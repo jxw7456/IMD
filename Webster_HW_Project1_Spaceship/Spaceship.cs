@@ -26,7 +26,7 @@ namespace Webster_HW_Project1_Spaceship
         public Spaceship()
         {
             speed = 0.0f;
-            acceleration = 1.0f;
+            acceleration = 0.5f;
             position = new Vector2(70, 70);
             direction = new Vector2(1, 0);
             velocity = direction * speed;
@@ -45,13 +45,11 @@ namespace Webster_HW_Project1_Spaceship
             //Calculate new velocity
             direction.Normalize();
             velocity = direction * speed;
-
+            
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 //Movement
-                //position.X += 5.0f;
-                //position.Y -= 5.0f;
                 position += velocity;
                 position += forward * speed;
 
@@ -60,6 +58,11 @@ namespace Webster_HW_Project1_Spaceship
                 if (speed > maxSpeed)
                 {
                     speed = maxSpeed;
+                }
+
+                else if (speed < 0.01f)
+                {
+                    speed = 0.0f;
                 }
             }
 
@@ -90,30 +93,6 @@ namespace Webster_HW_Project1_Spaceship
             {
                 speed *= 0.5f;
             }
-
-            //Increment angle or orientation
-            //if(Input.GetKey(KeyCode.LeftArrow))
-            //{
-            //  angle += angularSpeed * Time.deltaTime;
-            //}
-            //else if(Input.GetKey(KeyCode.RightArrow))
-            //{
-            //  angle -= angularSpeed * Time.deltaTime;
-            //}
-
-            //Keep the agnle between 0 and 360
-            //if(angle > 360.0f)
-            //{
-            //  angle -= 360.0f;
-            //}
-            //else if(angle < 0.0f)
-            //{
-            // angle+= 360.0f;
-            //}
-
-            //transform.rotation = Quaternion.Euler(0.0f,0.0f,angle)
-            //position += this.rotation * velocity * speed * Time.deltaTime
-            //transform.position = position
         }
 
         //Draw the ship

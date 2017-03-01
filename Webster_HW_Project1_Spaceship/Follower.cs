@@ -24,9 +24,9 @@ namespace Webster_HW_Project1_Spaceship
 
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch, Color color)
         {
-
+            spriteBatch.Draw(asteroids, position, color);
         }
     }
 }

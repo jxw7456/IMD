@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 //JaJuan Webster
 //Professor Cascioli
 //Spaceship!
@@ -14,6 +15,12 @@ namespace Webster_HW_Project1_Spaceship
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Spaceship spaceShip;
+        Follower follower;
+        Background background;
+        Texture2D bgImageOne;
+        Texture2D bgImageTwo;
+        Random rng;
 
         public Game1()
         {
@@ -29,8 +36,6 @@ namespace Webster_HW_Project1_Spaceship
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -40,10 +45,13 @@ namespace Webster_HW_Project1_Spaceship
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            rng = new Random();
+            spaceShip = new Spaceship();
+            background = new Background();
+            spaceShip.ship = Content.Load<Texture2D>("ship");
+            bgImageOne = Content.Load<Texture2D>("backgroundOne");
+            bgImageTwo = Content.Load<Texture2D>("backgroundTwo");
         }
 
         /// <summary>
@@ -65,8 +73,8 @@ namespace Webster_HW_Project1_Spaceship
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-
+            spaceShip.Update();
+            
             base.Update(gameTime);
         }
 
@@ -76,9 +84,24 @@ namespace Webster_HW_Project1_Spaceship
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+                                   
+            //Drawing the background image using the Random Gaussian
+            if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
+            {
+                spriteBatch.Draw(bgImageOne, new Vector2(0, 0), Color.White);
+            }
+
+            else
+            {
+                spriteBatch.Draw(bgImageTwo, new Vector2(0, 0), Color.White);
+            }
+
+            spaceShip.Draw(spriteBatch, Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

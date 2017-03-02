@@ -17,7 +17,6 @@ namespace Webster_HW_Project1_Spaceship
         float acceleration;
         float rotation;
         public Vector2 position;
-        Vector2 direction;
         Vector2 forward;
         Vector2 velocity;
         public Texture2D ship;
@@ -28,8 +27,7 @@ namespace Webster_HW_Project1_Spaceship
             speed = 0.0f;
             acceleration = 0.5f;
             position = new Vector2(70, 70);
-            direction = new Vector2(1, 0);
-            velocity = direction * speed;
+            velocity = forward * speed;
             rotation = 0.0f;
             forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
         }
@@ -43,15 +41,14 @@ namespace Webster_HW_Project1_Spaceship
         public void Update(GameTime gameTime)
         {
             //Calculate new velocity
-            direction.Normalize();
-            velocity = direction * speed;
+            forward.Normalize();
+            velocity = forward * speed;
             
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 //Movement
-                position += velocity;
-                position += forward * speed;
+                position += velocity;                
 
                 //Increase speed
                 speed += acceleration;
@@ -76,16 +73,14 @@ namespace Webster_HW_Project1_Spaceship
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 rotation -= 0.05f;
-                direction.X -= 0.05f;
-                direction.Y -= 0.05f;
+                forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
             }
 
             //Rotate Right
             else if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 rotation += 0.05f;
-                direction.X += 0.05f;
-                direction.Y += 0.05f;
+                forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
             }
 
             //Decelerate quickly
@@ -98,7 +93,7 @@ namespace Webster_HW_Project1_Spaceship
         //Draw the ship
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(ship, position, null, null, new Vector2((ship.Width / 2), (ship.Height / 2)), rotation, null, color, SpriteEffects.None, 0);
+            spriteBatch.Draw(ship, position, null, null, new Vector2((ship.Width / 2), (ship.Height / 2)), (rotation + 1.55f), null, color, SpriteEffects.None, 0);
         }
     }
 }

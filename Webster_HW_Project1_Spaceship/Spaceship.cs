@@ -13,7 +13,7 @@ namespace Webster_HW_Project1_Spaceship
     {
         //Fields
         float speed; //speed is constant
-        float maxSpeed = 10;
+        float maxSpeed;
         float acceleration;
         float rotation;
         public Vector2 position;
@@ -25,7 +25,8 @@ namespace Webster_HW_Project1_Spaceship
         public Spaceship()
         {
             speed = 0.0f;
-            acceleration = 0.5f;
+            maxSpeed = 15.0f;
+            acceleration = 0.2f;
             position = new Vector2(70, 70);
             velocity = forward * speed;
             rotation = 0.0f;
@@ -47,9 +48,6 @@ namespace Webster_HW_Project1_Spaceship
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                //Movement
-                position += velocity;                
-
                 //Increase speed
                 speed += acceleration;
                 if (speed > maxSpeed)
@@ -88,6 +86,9 @@ namespace Webster_HW_Project1_Spaceship
             {
                 speed *= 0.5f;
             }
+
+            //Movement
+            position += velocity;
         }
 
         //Draw the ship

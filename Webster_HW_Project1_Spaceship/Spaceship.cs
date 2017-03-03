@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-
 //JaJuan Webster
 //Professor Cascioli
 //Spaceship!
@@ -17,8 +16,8 @@ namespace Webster_HW_Project1_Spaceship
         float acceleration;
         float rotation;
         public Vector2 position;
-        Vector2 forward;
-        Vector2 velocity;
+        public Vector2 forward;
+        public Vector2 velocity;
         public Texture2D ship;
 
         //Constructor
@@ -39,7 +38,7 @@ namespace Webster_HW_Project1_Spaceship
             get { return position; }
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             //Calculate new velocity
             forward.Normalize();

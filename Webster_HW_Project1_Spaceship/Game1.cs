@@ -48,8 +48,10 @@ namespace Webster_HW_Project1_Spaceship
             spriteBatch = new SpriteBatch(GraphicsDevice);
             rng = new Random();
             spaceShip = new Spaceship();
+            follower = new Follower();
             background = new Background();
             spaceShip.ship = Content.Load<Texture2D>("ship");
+            follower.asteroids = Content.Load<Texture2D>("asteroid");
             bgImageOne = Content.Load<Texture2D>("backgroundOne");
             bgImageTwo = Content.Load<Texture2D>("backgroundTwo");
         }
@@ -72,10 +74,11 @@ namespace Webster_HW_Project1_Spaceship
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+                        
+            follower.Update();
+            spaceShip.Update();
 
-            spaceShip.Update(gameTime);
-
-            //Screenwrap
+            //Screenwrap for Spaceship
             if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))
             {
                 spaceShip.position.X = -5;
@@ -94,6 +97,27 @@ namespace Webster_HW_Project1_Spaceship
             else if (spaceShip.position.Y < -5)
             {
                 spaceShip.position.Y = (GraphicsDevice.Viewport.Height + 5);
+            }
+
+            //Screenwrap for Follower
+            if (follower.astPosition.X > (GraphicsDevice.Viewport.Width + 5))
+            {
+                follower.astPosition.X = -5;
+            }
+
+            else if (follower.astPosition.X < -5)
+            {
+                follower.astPosition.X = (GraphicsDevice.Viewport.Width + 5);
+            }
+
+            if (follower.astPosition.Y > (GraphicsDevice.Viewport.Height + 5))
+            {
+                follower.astPosition.Y = -5;
+            }
+
+            else if (follower.astPosition.Y < -5)
+            {
+                follower.astPosition.Y = (GraphicsDevice.Viewport.Height + 5);
             }
 
             base.Update(gameTime);
@@ -119,6 +143,8 @@ namespace Webster_HW_Project1_Spaceship
             {
                 spriteBatch.Draw(bgImageTwo, new Vector2(0, 0), Color.White);
             }
+
+            follower.Draw(spriteBatch, Color.White);
 
             spaceShip.Draw(spriteBatch, Color.White);
 

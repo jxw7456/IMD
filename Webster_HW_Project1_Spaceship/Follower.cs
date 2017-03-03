@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 //JaJuan Webster
 //Professor Cascioli
 //Spaceship!
@@ -14,19 +9,27 @@ namespace Webster_HW_Project1_Spaceship
     class Follower
     {
         //Fields
-        Vector2 position;
-        float speed;
+        float astSpeed;
+        public Vector2 astPosition;        
         public Texture2D asteroids;
         Spaceship spaceShip;
 
+        //Constructor
+        public Follower()
+        {
+            astSpeed = 0.0f;
+            astPosition = new Vector2(0, 0);            
+            spaceShip = new Spaceship();
+        }
+
         public void Update()
         {
-
+            astPosition = spaceShip.position - spaceShip.velocity;
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(asteroids, position, color);
+            spriteBatch.Draw(asteroids, astPosition, color);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 //JaJuan Webster
 //Professor Cascioli
 //Spaceship!
@@ -15,11 +16,13 @@ namespace Webster_HW_Project1_Spaceship
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Spaceship spaceShip;
+        Spaceship spaceship;
         Follower follower;
+        List<Follower> asteroids;
         Background background;
-        Texture2D bgImageOne;
-        Texture2D bgImageTwo;
+        Texture2D astImage;
+        Texture2D bgOne;
+        Texture2D bgTwo;
         Random rng;
 
         public Game1()
@@ -47,13 +50,14 @@ namespace Webster_HW_Project1_Spaceship
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             rng = new Random();
-            spaceShip = new Spaceship();
+            spaceship = new Spaceship();
             follower = new Follower();
+            asteroids = new List<Follower>();
             background = new Background();
-            spaceShip.ship = Content.Load<Texture2D>("ship");
-            follower.asteroids = Content.Load<Texture2D>("asteroid");
-            bgImageOne = Content.Load<Texture2D>("backgroundOne");
-            bgImageTwo = Content.Load<Texture2D>("backgroundTwo");
+            spaceship.ship = Content.Load<Texture2D>("ship");
+            astImage = Content.Load<Texture2D>("asteroid");
+            bgOne = Content.Load<Texture2D>("backgroundOne");
+            bgTwo = Content.Load<Texture2D>("backgroundTwo");
         }
 
         /// <summary>
@@ -74,50 +78,55 @@ namespace Webster_HW_Project1_Spaceship
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-                        
-            follower.Update();
-            spaceShip.Update();
 
+            //Update methods
+            for (int i = 0; i > asteroids.Count; i++)
+            {
+                asteroids[i].Update(spaceship);
+
+                //Screenwrap for follower
+                if (asteroids[i].position.X > (GraphicsDevice.Viewport.Width + 5))
+                {
+                    asteroids[i].position.X = -5;
+                }
+
+                else if (asteroids[i].position.X < -5)
+                {
+                    asteroids[i].position.X = (GraphicsDevice.Viewport.Width + 5);
+                }
+
+                if (asteroids[i].position.Y > (GraphicsDevice.Viewport.Height + 5))
+                {
+                    asteroids[i].position.Y = -5;
+                }
+
+                else if (asteroids[i].position.Y < -5)
+                {
+                    asteroids[i].position.Y = (GraphicsDevice.Viewport.Height + 5);
+                }
+            }
+
+            spaceship.Update();
+            
             //Screenwrap for Spaceship
-            if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))
+            if (spaceship.position.X > (GraphicsDevice.Viewport.Width + 5))
             {
-                spaceShip.position.X = -5;
+                spaceship.position.X = -5;
             }
 
-            else if (spaceShip.position.X < -5)
+            else if (spaceship.position.X < -5)
             {
-                spaceShip.position.X = (GraphicsDevice.Viewport.Width + 5);
+                spaceship.position.X = (GraphicsDevice.Viewport.Width + 5);
             }
 
-            if (spaceShip.position.Y > (GraphicsDevice.Viewport.Height + 5))
+            if (spaceship.position.Y > (GraphicsDevice.Viewport.Height + 5))
             {
-                spaceShip.position.Y = -5;
+                spaceship.position.Y = -5;
             }
 
-            else if (spaceShip.position.Y < -5)
+            else if (spaceship.position.Y < -5)
             {
-                spaceShip.position.Y = (GraphicsDevice.Viewport.Height + 5);
-            }
-
-            //Screenwrap for Follower
-            if (follower.astPosition.X > (GraphicsDevice.Viewport.Width + 5))
-            {
-                follower.astPosition.X = -5;
-            }
-
-            else if (follower.astPosition.X < -5)
-            {
-                follower.astPosition.X = (GraphicsDevice.Viewport.Width + 5);
-            }
-
-            if (follower.astPosition.Y > (GraphicsDevice.Viewport.Height + 5))
-            {
-                follower.astPosition.Y = -5;
-            }
-
-            else if (follower.astPosition.Y < -5)
-            {
-                follower.astPosition.Y = (GraphicsDevice.Viewport.Height + 5);
+                spaceship.position.Y = (GraphicsDevice.Viewport.Height + 5);
             }
 
             base.Update(gameTime);
@@ -136,17 +145,20 @@ namespace Webster_HW_Project1_Spaceship
             //Drawing the background image using the Random Gaussian
             if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
             {
-                spriteBatch.Draw(bgImageOne, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(bgOne, new Vector2(0, 0), Color.White);
             }
 
             else
             {
-                spriteBatch.Draw(bgImageTwo, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(bgTwo, new Vector2(0, 0), Color.White);
             }
 
-            follower.Draw(spriteBatch, Color.White);
+            for (int i = 0; i > asteroids.Capacity; i++)
+            {
+                asteroids[i].Draw(spriteBatch, astImage, Color.White);
+            }
 
-            spaceShip.Draw(spriteBatch, Color.White);
+            spaceship.Draw(spriteBatch, Color.White);
 
             spriteBatch.End();
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+
 //JaJuan Webster
 //Professor Cascioli
 //Spaceship!
@@ -14,17 +15,17 @@ namespace Webster_HW_Project1_Spaceship
         float speed; //speed is constant
         float maxSpeed;
         float acceleration;
-        float rotation;
-        public Vector2 position;
-        public Vector2 forward;
+        float rotation;        
+        Vector2 forward;
         public Vector2 velocity;
+        public Vector2 position;
         public Texture2D ship;
 
         //Constructor
         public Spaceship()
         {
             speed = 0.0f;
-            maxSpeed = 15.0f;
+            maxSpeed = 12.0f;
             acceleration = 0.2f;
             position = new Vector2(70, 70);
             velocity = forward * speed;

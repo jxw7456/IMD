@@ -20,7 +20,7 @@ namespace Webster_HW_Project1_Spaceship
         Follower follower;
         List<Follower> asteroids;
         Background background;
-        Texture2D astImage;
+        Texture2D astroidImage;
         Texture2D bgOne;
         Texture2D bgTwo;
         Random rng;
@@ -51,13 +51,22 @@ namespace Webster_HW_Project1_Spaceship
             spriteBatch = new SpriteBatch(GraphicsDevice);
             rng = new Random();
             spaceship = new Spaceship();
-            follower = new Follower();
             asteroids = new List<Follower>();
             background = new Background();
             spaceship.ship = Content.Load<Texture2D>("ship");
-            astImage = Content.Load<Texture2D>("asteroid");
+            astroidImage = Content.Load<Texture2D>("asteroid");
             bgOne = Content.Load<Texture2D>("backgroundOne");
             bgTwo = Content.Load<Texture2D>("backgroundTwo");
+
+            //Add followers to the list of asteroids
+            for (int i = 0; i < 10; i++)
+            {
+                follower = new Follower();
+                follower.speed = rng.Next(7);
+                follower.position = new Rectangle(rng.Next(0, 600), rng.Next(0, 200), rng.Next(0, 70), 0);
+                follower.position.Height = follower.position.Width;
+                asteroids.Add(follower);
+            }
         }
 
         /// <summary>
@@ -79,7 +88,9 @@ namespace Webster_HW_Project1_Spaceship
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //Update methods
+            //follower.Update(spaceship); THIS WORK
+            
+            //for loop for asteroid update
             for (int i = 0; i > asteroids.Count; i++)
             {
                 asteroids[i].Update(spaceship);
@@ -153,9 +164,12 @@ namespace Webster_HW_Project1_Spaceship
                 spriteBatch.Draw(bgTwo, new Vector2(0, 0), Color.White);
             }
 
-            for (int i = 0; i > asteroids.Capacity; i++)
+            //follower.Draw(spriteBatch, astroidImage, Color.White); THIS WORKS
+
+            //draw all the asteroids
+            for (int i = 0; i > asteroids.Count; i++)
             {
-                asteroids[i].Draw(spriteBatch, astImage, Color.White);
+                asteroids[i].Draw(spriteBatch, astroidImage, Color.White);
             }
 
             spaceship.Draw(spriteBatch, Color.White);

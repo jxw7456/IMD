@@ -10,7 +10,7 @@ namespace Webster_HW_Project1_Spaceship
     class Follower
     {
         //Fields
-        float speed;
+        public float speed;
         public Rectangle position;
         public Vector2 direction;
         Random rng;
@@ -20,7 +20,7 @@ namespace Webster_HW_Project1_Spaceship
         {
             rng = new Random();
             speed = rng.Next(7);
-            position = new Rectangle(rng.Next(600), rng.Next(200), rng.Next(100), rng.Next(100));
+            position = new Rectangle(600, 200, 70, 70); //height will be set equal to width in the update method
             direction = new Vector2(0, 0);
         }
 
@@ -32,6 +32,7 @@ namespace Webster_HW_Project1_Spaceship
             direction.Normalize();
             position.X += (int)(direction.X * speed);
             position.Y += (int)(direction.Y * speed);
+            position.Height = position.Width;
         }
 
         public void Draw(SpriteBatch spriteBatch, Texture2D asteroid, Color color)

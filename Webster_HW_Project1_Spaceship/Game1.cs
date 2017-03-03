@@ -76,7 +76,7 @@ namespace Webster_HW_Project1_Spaceship
                 Exit();
 
             //Update methods
-            follower.Update();
+            follower.Update(spaceship);
             spaceship.Update();
 
             //Screenwrap for follower

@@ -12,28 +12,31 @@ namespace Webster_HW_Project1_Spaceship
         //Fields
         float speed;
         public Vector2 position;
+        public Vector2 direction;
         public Texture2D asteroids;
         Random rng;
-        Spaceship spaceShip;
 
+        //Constructor
         public Follower()
         {
-            speed = 0.0f;
-            position = new Vector2(50, 50);
             rng = new Random();
-            spaceShip = new Spaceship();
+            speed = rng.Next(5);
+            position = new Vector2(600, 200);
+            direction = new Vector2(0, 0);
         }
 
         //Track the position and speed of the follower
-        public void Update()
+        public void Update(Spaceship spaceship)
         {
-            speed = rng.Next(0, 9);
-            position = speed * (spaceShip.position - spaceShip.velocity);
+            direction = spaceship.position - position;
+            direction.Normalize();
+            position += direction * speed;
+            Console.WriteLine(spaceship.position);
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(asteroids, position, color);
+            spriteBatch.Draw(asteroids, position, null, null, new Vector2((asteroids.Width / 2), (asteroids.Height / 2)), (float)Math.Atan2(direction.Y, direction.X), null, color, SpriteEffects.None, 0);
         }
     }
 }

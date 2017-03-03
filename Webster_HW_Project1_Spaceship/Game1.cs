@@ -15,11 +15,11 @@ namespace Webster_HW_Project1_Spaceship
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Spaceship spaceShip;
+        Spaceship spaceship;
         Follower follower;
         Background background;
-        Texture2D bgImageOne;
-        Texture2D bgImageTwo;
+        Texture2D bgOne;
+        Texture2D bgTwo;
         Random rng;
 
         public Game1()
@@ -47,11 +47,13 @@ namespace Webster_HW_Project1_Spaceship
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             rng = new Random();
-            spaceShip = new Spaceship();
+            spaceship = new Spaceship();
+            follower = new Follower();
             background = new Background();
-            spaceShip.ship = Content.Load<Texture2D>("ship");
-            bgImageOne = Content.Load<Texture2D>("backgroundOne");
-            bgImageTwo = Content.Load<Texture2D>("backgroundTwo");
+            spaceship.ship = Content.Load<Texture2D>("ship");
+            follower.asteroids = Content.Load<Texture2D>("asteroid");
+            bgOne = Content.Load<Texture2D>("backgroundOne");
+            bgTwo = Content.Load<Texture2D>("backgroundTwo");
         }
 
         /// <summary>
@@ -73,27 +75,50 @@ namespace Webster_HW_Project1_Spaceship
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            spaceShip.Update(gameTime);
+            //Update methods
+            follower.Update();
+            spaceship.Update();
 
-            //Screenwrap
-            if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))
+            //Screenwrap for follower
+            if (follower.position.X > (GraphicsDevice.Viewport.Width + 5))
             {
-                spaceShip.position.X = -5;
+                follower.position.X = -5;
             }
 
-            else if (spaceShip.position.X < -5)
+            else if (follower.position.X < -5)
             {
-                spaceShip.position.X = (GraphicsDevice.Viewport.Width + 5);
+                follower.position.X = (GraphicsDevice.Viewport.Width + 5);
             }
 
-            if (spaceShip.position.Y > (GraphicsDevice.Viewport.Height + 5))
+            if (follower.position.Y > (GraphicsDevice.Viewport.Height + 5))
             {
-                spaceShip.position.Y = -5;
+                follower.position.Y = -5;
             }
 
-            else if (spaceShip.position.Y < -5)
+            else if (follower.position.Y < -5)
             {
-                spaceShip.position.Y = (GraphicsDevice.Viewport.Height + 5);
+                follower.position.Y = (GraphicsDevice.Viewport.Height + 5);
+            }
+
+            //Screenwrap for Spaceship
+            if (spaceship.position.X > (GraphicsDevice.Viewport.Width + 5))
+            {
+                spaceship.position.X = -5;
+            }
+
+            else if (spaceship.position.X < -5)
+            {
+                spaceship.position.X = (GraphicsDevice.Viewport.Width + 5);
+            }
+
+            if (spaceship.position.Y > (GraphicsDevice.Viewport.Height + 5))
+            {
+                spaceship.position.Y = -5;
+            }
+
+            else if (spaceship.position.Y < -5)
+            {
+                spaceship.position.Y = (GraphicsDevice.Viewport.Height + 5);
             }
 
             base.Update(gameTime);
@@ -112,15 +137,17 @@ namespace Webster_HW_Project1_Spaceship
             //Drawing the background image using the Random Gaussian
             if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
             {
-                spriteBatch.Draw(bgImageOne, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(bgOne, new Vector2(0, 0), Color.White);
             }
 
             else
             {
-                spriteBatch.Draw(bgImageTwo, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(bgTwo, new Vector2(0, 0), Color.White);
             }
 
-            spaceShip.Draw(spriteBatch, Color.White);
+            follower.Draw(spriteBatch, Color.White);
+
+            spaceship.Draw(spriteBatch, Color.White);
 
             spriteBatch.End();
 

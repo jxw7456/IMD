@@ -20,7 +20,7 @@ namespace Webster_HW_Project1_Spaceship
         public Follower()
         {
             rng = new Random();
-            speed = rng.Next(5);
+            speed = rng.Next(7);
             position = new Vector2(600, 200);
             direction = new Vector2(0, 0);
         }
@@ -31,7 +31,6 @@ namespace Webster_HW_Project1_Spaceship
             direction = spaceship.position - position;
             direction.Normalize();
             position += direction * speed;
-            Console.WriteLine(spaceship.position);
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color)

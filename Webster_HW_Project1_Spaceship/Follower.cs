@@ -33,6 +33,7 @@ namespace Webster_HW_Project1_Spaceship
             rectangle.Height = rectangle.Width;
         }
 
+        //Draws the follower(asteroids)
         public void Draw(SpriteBatch spriteBatch, Texture2D asteroid, Color color)
         {
             spriteBatch.Draw(asteroid, null, rectangle, null, new Vector2((asteroid.Width / 2), (asteroid.Height / 2)), (float)Math.Atan2(direction.Y, direction.X), null, color, SpriteEffects.None, 0);

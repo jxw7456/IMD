@@ -39,6 +39,7 @@ namespace Webster_HW_Project1_Spaceship
             get { return position; }
         }
 
+        //Moves the spaceship to maximum speed using acceleration. Letting go of the Up/W button decelerates the ship
         public void Update()
         {
             //Calculate new velocity

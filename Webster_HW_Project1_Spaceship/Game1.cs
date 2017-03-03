@@ -18,7 +18,7 @@ namespace Webster_HW_Project1_Spaceship
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Spaceship spaceship;
+        Spaceship spaceShip;
         List<Follower> asteroids;
         Background background;
         Texture2D astroidImage;
@@ -52,10 +52,10 @@ namespace Webster_HW_Project1_Spaceship
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             rng = new Random();
-            spaceship = new Spaceship();
+            spaceShip = new Spaceship();
             asteroids = new List<Follower>();
             background = new Background();
-            spaceship.ship = Content.Load<Texture2D>("ship");
+            spaceShip.ship = Content.Load<Texture2D>("ship");
             astroidImage = Content.Load<Texture2D>("asteroid");
             bgOne = Content.Load<Texture2D>("backgroundOne");
             bgTwo = Content.Load<Texture2D>("backgroundTwo");
@@ -93,30 +93,31 @@ namespace Webster_HW_Project1_Spaceship
             //foreach loop for asteroid update
             foreach(Follower f in asteroids)
             {
-                f.Update(spaceship);
+                f.Update(spaceShip);
             }
 
-            spaceship.Update();
+            //spaceShip update
+            spaceShip.Update();
             
             //Screenwrap for Spaceship
-            if (spaceship.position.X > (GraphicsDevice.Viewport.Width + 5))
+            if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))
             {
-                spaceship.position.X = -5;
+                spaceShip.position.X = -5;
             }
 
-            else if (spaceship.position.X < -5)
+            else if (spaceShip.position.X < -5)
             {
-                spaceship.position.X = (GraphicsDevice.Viewport.Width + 5);
+                spaceShip.position.X = (GraphicsDevice.Viewport.Width + 5);
             }
 
-            if (spaceship.position.Y > (GraphicsDevice.Viewport.Height + 5))
+            if (spaceShip.position.Y > (GraphicsDevice.Viewport.Height + 5))
             {
-                spaceship.position.Y = -5;
+                spaceShip.position.Y = -5;
             }
 
-            else if (spaceship.position.Y < -5)
+            else if (spaceShip.position.Y < -5)
             {
-                spaceship.position.Y = (GraphicsDevice.Viewport.Height + 5);
+                spaceShip.position.Y = (GraphicsDevice.Viewport.Height + 5);
             }
 
             base.Update(gameTime);
@@ -149,7 +150,8 @@ namespace Webster_HW_Project1_Spaceship
                 f.Draw(spriteBatch, astroidImage, Color.White);
             }
 
-            spaceship.Draw(spriteBatch, Color.White);
+            //draw the spaceShip
+            spaceShip.Draw(spriteBatch, Color.White);
 
             spriteBatch.End();
 

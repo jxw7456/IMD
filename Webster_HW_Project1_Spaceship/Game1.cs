@@ -63,11 +63,11 @@ namespace Webster_HW_Project1_Spaceship
             MediaPlayer.Play(bgMusic);
 
             //Add followers to the list of asteroids
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 11; i++)
             {
                 asteroids.Add(new Follower(new Rectangle(rng.Next(0, 600), rng.Next(0, 200), 
                     rng.Next(60, 150), rng.Next(60, 150)), 
-                    rng.Next(7)));  //Random position, size, and speed
+                    rng.Next(1, 7)));  //Random position, size, and speed
             }
         }
 

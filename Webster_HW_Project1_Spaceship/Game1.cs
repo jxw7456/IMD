@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
+using System.Collections.Generic;
 //JaJuan Webster
 //Professor Cascioli
 //Spaceship!
+//ABOVE AND BEYOND: Background Music
 
 namespace Webster_HW_Project1_Spaceship
 {
@@ -16,11 +19,13 @@ namespace Webster_HW_Project1_Spaceship
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Spaceship spaceShip;
-        Follower follower;
+        List<Follower> asteroids;
         Background background;
-        Texture2D bgImageOne;
-        Texture2D bgImageTwo;
+        Texture2D astroidImage;
+        Texture2D bgOne;
+        Texture2D bgTwo;
         Random rng;
+        Song bgMusic;
 
         public Game1()
         {
@@ -48,10 +53,22 @@ namespace Webster_HW_Project1_Spaceship
             spriteBatch = new SpriteBatch(GraphicsDevice);
             rng = new Random();
             spaceShip = new Spaceship();
+            asteroids = new List<Follower>();
             background = new Background();
             spaceShip.ship = Content.Load<Texture2D>("ship");
-            bgImageOne = Content.Load<Texture2D>("backgroundOne");
-            bgImageTwo = Content.Load<Texture2D>("backgroundTwo");
+            astroidImage = Content.Load<Texture2D>("asteroid");
+            bgOne = Content.Load<Texture2D>("backgroundOne");
+            bgTwo = Content.Load<Texture2D>("backgroundTwo");
+            bgMusic = Content.Load<Song>("bgMusic");
+            MediaPlayer.Play(bgMusic);
+
+            //Add followers to the list of asteroids
+            for (int i = 0; i < 11; i++)
+            {
+                asteroids.Add(new Follower(new Rectangle(rng.Next(0, 600), rng.Next(0, 200), 
+                    rng.Next(60, 150), rng.Next(60, 150)), 
+                    rng.Next(1, 7)));  //Random position, size, and speed
+            }
         }
 
         /// <summary>
@@ -72,10 +89,17 @@ namespace Webster_HW_Project1_Spaceship
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
+            //foreach loop for asteroid update
+            foreach(Follower f in asteroids)
+            {
+                f.Update(spaceShip);
+            }
 
-            spaceShip.Update(gameTime);
-
-            //Screenwrap
+            //spaceShip update
+            spaceShip.Update();
+            
+            //Screenwrap for Spaceship
             if (spaceShip.position.X > (GraphicsDevice.Viewport.Width + 5))
             {
                 spaceShip.position.X = -5;
@@ -112,14 +136,21 @@ namespace Webster_HW_Project1_Spaceship
             //Drawing the background image using the Random Gaussian
             if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
             {
-                spriteBatch.Draw(bgImageOne, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(bgOne, new Vector2(0, 0), Color.White);
             }
 
             else
             {
-                spriteBatch.Draw(bgImageTwo, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(bgTwo, new Vector2(0, 0), Color.White);
             }
 
+            //draw all the asteroids
+            foreach(Follower f in asteroids)
+            {
+                f.Draw(spriteBatch, astroidImage, Color.White);
+            }
+
+            //draw the spaceShip
             spaceShip.Draw(spriteBatch, Color.White);
 
             spriteBatch.End();

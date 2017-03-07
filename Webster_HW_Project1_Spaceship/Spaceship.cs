@@ -15,17 +15,17 @@ namespace Webster_HW_Project1_Spaceship
         float speed; //speed is constant
         float maxSpeed;
         float acceleration;
-        float rotation;
-        public Vector2 position;
+        float rotation;        
         Vector2 forward;
-        Vector2 velocity;
+        public Vector2 velocity;
+        public Vector2 position;
         public Texture2D ship;
 
         //Constructor
         public Spaceship()
         {
             speed = 0.0f;
-            maxSpeed = 15.0f;
+            maxSpeed = 12.0f;
             acceleration = 0.2f;
             position = new Vector2(70, 70);
             velocity = forward * speed;
@@ -39,7 +39,8 @@ namespace Webster_HW_Project1_Spaceship
             get { return position; }
         }
 
-        public void Update(GameTime gameTime)
+        //Moves the spaceship to maximum speed using acceleration. Letting go of the Up/W button decelerates the ship
+        public void Update()
         {
             //Calculate new velocity
             forward.Normalize();

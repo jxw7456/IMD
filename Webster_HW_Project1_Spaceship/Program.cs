@@ -1,4 +1,8 @@
 ﻿using System;
+//JaJuan Webster
+//Professor Cascioli
+//Spaceship!
+//ABOVE AND BEYOND: Background Music
 
 namespace Webster_HW_Project1_Spaceship
 {

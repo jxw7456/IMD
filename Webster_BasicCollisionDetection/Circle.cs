@@ -42,7 +42,7 @@ namespace Webster_BasicCollisionDetection
             radius = (float)result;
             double result2 = Math.Sqrt((other.x * other.x) + (other.y * other.y));
             other.radius = (float)result2;
-            double distance = Math.Sqrt(((other.x - x)*(other.x - x)) + ((other.y - y)*(other.y - y)));
+            double distance = Math.Sqrt(Math.Pow(other.x - x, 2) + Math.Pow(other.y - y, 2));
             if (distance > (radius + other.radius))
             {
                 return false;

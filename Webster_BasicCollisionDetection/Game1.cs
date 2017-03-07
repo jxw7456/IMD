@@ -38,8 +38,8 @@ namespace Webster_BasicCollisionDetection
         protected override void Initialize()
         {
             rng = new Random();
-            circleOne = new Circle(rng.Next(350, 500), rng.Next(350, 500), rng.Next(100, 200));
-            circleTwo = new Circle(rng.Next(350, 500), rng.Next(350, 500), rng.Next(100, 200));
+            circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
+            circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
             aabbOne = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
             aabbTwo = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
 
@@ -80,14 +80,14 @@ namespace Webster_BasicCollisionDetection
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                aabbOne = new AABB(rng.Next(50, 300), rng.Next(50, 300), rng.Next(100, 200), rng.Next(100, 200));
-                aabbTwo = new AABB(rng.Next(50, 300), rng.Next(50, 300), rng.Next(100, 200), rng.Next(100, 200));
+                aabbOne = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
+                aabbTwo = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.C))
             {
-                circleOne = new Circle(rng.Next(300, 400), rng.Next(20, 400), rng.Next(100, 200));
-                circleTwo = new Circle(rng.Next(300, 400), rng.Next(20, 400), rng.Next(100, 200));
+                circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
+                circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
             }
 
             base.Update(gameTime);
@@ -106,7 +106,7 @@ namespace Webster_BasicCollisionDetection
             spriteBatch.Draw(circle, new Vector2(circleOne.X, circleOne.Y), Color.White);
             spriteBatch.Draw(circle, new Vector2(circleTwo.X, circleTwo.Y), Color.White);
             spriteBatch.Draw(rectangle, new Rectangle((int)aabbOne.X, (int)aabbOne.Y, (int)aabbOne.Width, (int)aabbOne.Height), Color.White);
-            spriteBatch.Draw(rectangle, new Rectangle((int)aabbTwo.X, (int)aabbTwo.Y, (int)aabbTwo.Width, (int)aabbTwo.Height), Color.White);
+            spriteBatch.Draw(rectangle, new Rectangle((int)aabbTwo.X, (int)aabbTwo.Y, (int)aabbTwo.Width, (int)aabbTwo.Height), Color.ForestGreen);
 
             if (circleOne.Intersects(circleTwo) == true)
             {

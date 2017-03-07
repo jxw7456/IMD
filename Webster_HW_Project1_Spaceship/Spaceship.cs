@@ -45,7 +45,7 @@ namespace Webster_HW_Project1_Spaceship
             //Calculate new velocity
             forward.Normalize();
             velocity = forward * speed;
-            
+
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {

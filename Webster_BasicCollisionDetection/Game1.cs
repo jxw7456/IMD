@@ -13,6 +13,7 @@ namespace Webster_BasicCollisionDetection
     /// </summary>
     public class Game1 : Game
     {
+        //Fields
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Circle circleOne;
@@ -38,8 +39,8 @@ namespace Webster_BasicCollisionDetection
         protected override void Initialize()
         {
             rng = new Random();
-            circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
-            circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
+            circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(25, 75));
+            circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(25, 75));
             aabbOne = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
             aabbTwo = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
 
@@ -56,7 +57,6 @@ namespace Webster_BasicCollisionDetection
             spriteBatch = new SpriteBatch(GraphicsDevice);
             circle = Content.Load<Texture2D>("circle");
             rectangle = Content.Load<Texture2D>("rectangle");
-
         }
 
         /// <summary>
@@ -78,16 +78,18 @@ namespace Webster_BasicCollisionDetection
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            //Set new position and size for rectangle if "A" is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 aabbOne = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
                 aabbTwo = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
             }
 
+            //Set new position and radii for circle if "C" is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.C))
             {
-                circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
-                circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(100, 200));
+                circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(25, 75));
+                circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(25, 75));
             }
 
             base.Update(gameTime);
@@ -103,17 +105,20 @@ namespace Webster_BasicCollisionDetection
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(circle, new Vector2(circleOne.X, circleOne.Y), Color.White);
-            spriteBatch.Draw(circle, new Vector2(circleTwo.X, circleTwo.Y), Color.White);
+            //Draw Rectangles and Circles white
+            spriteBatch.Draw(circle, new Rectangle((int)circleOne.X, (int)circleOne.Y, (int)(circleOne.Radius * 2), (int)(circleOne.Radius * 2)), Color.White);
+            spriteBatch.Draw(circle, new Rectangle((int)circleTwo.X, (int)circleTwo.Y, (int)(circleTwo.Radius * 2), (int)(circleTwo.Radius * 2)), Color.White);
             spriteBatch.Draw(rectangle, new Rectangle((int)aabbOne.X, (int)aabbOne.Y, (int)aabbOne.Width, (int)aabbOne.Height), Color.White);
-            spriteBatch.Draw(rectangle, new Rectangle((int)aabbTwo.X, (int)aabbTwo.Y, (int)aabbTwo.Width, (int)aabbTwo.Height), Color.ForestGreen);
+            spriteBatch.Draw(rectangle, new Rectangle((int)aabbTwo.X, (int)aabbTwo.Y, (int)aabbTwo.Width, (int)aabbTwo.Height), Color.White);
 
+            //If circles intersect, change their color to red
             if (circleOne.Intersects(circleTwo) == true)
             {
-                spriteBatch.Draw(circle, new Vector2(circleOne.X, circleOne.Y), Color.Red);
-                spriteBatch.Draw(circle, new Vector2(circleTwo.X, circleTwo.Y), Color.Red);
+                spriteBatch.Draw(circle, new Rectangle((int)circleOne.X, (int)circleOne.Y, (int)(circleOne.Radius * 2), (int)(circleOne.Radius * 2)), Color.Red);
+                spriteBatch.Draw(circle, new Rectangle((int)circleTwo.X, (int)circleTwo.Y, (int)(circleTwo.Radius * 2), (int)(circleTwo.Radius * 2)), Color.Red);
             }
 
+            //If rectangles intersect, change their color to red
             if (aabbOne.Intersects(aabbTwo) == true)
             {
                 spriteBatch.Draw(rectangle, new Rectangle((int)aabbOne.X, (int)aabbOne.Y, (int)aabbOne.Width, (int)aabbOne.Height), Color.Red);

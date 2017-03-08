@@ -6,11 +6,13 @@ namespace Webster_BasicCollisionDetection
 {
     class AABB
     {
+        //Fields
         private float x;
         private float y;
         private float width;
         private float height;
 
+        //Get Set Property for x, y, width, height
         public float X
         {
             get { return x; }
@@ -35,6 +37,7 @@ namespace Webster_BasicCollisionDetection
             set { height = value; }
         }
 
+        //Get properties for MinX, MinY, MaxX, MaxY
         public float MinX
         {
             get { return x; }
@@ -55,6 +58,7 @@ namespace Webster_BasicCollisionDetection
             get { return y + height; }
         }
 
+        //Constructor
         public AABB(float x2, float y2, float wid, float heig)
         {
             x = x2;
@@ -63,6 +67,7 @@ namespace Webster_BasicCollisionDetection
             height = heig;
         }
 
+        //Checks if two rectangles are intersecting and returning a boolean
         public bool Intersects(AABB other)
         {
             if (MaxX < other.MinX)
@@ -75,20 +80,17 @@ namespace Webster_BasicCollisionDetection
                 return false;
             }
 
-            if (MinY < other.MaxY)
+            if (MinY > other.MaxY)
             {
                 return false;
             }
 
-            if (MaxY > other.MinY)
+            if (MaxY < other.MinY)
             {
                 return false;
             }
 
-            else
-            {
-                return true;
-            }
+            return true;
         }
     }
 }

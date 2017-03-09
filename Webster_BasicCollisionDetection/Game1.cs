@@ -23,6 +23,7 @@ namespace Webster_BasicCollisionDetection
         Texture2D circle;
         Texture2D rectangle;
         Random rng;
+        KeyboardState oldState;
 
         public Game1()
         {
@@ -78,19 +79,34 @@ namespace Webster_BasicCollisionDetection
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //Set new position and size for rectangle if "A" is pressed
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            KeyboardState newState = Keyboard.GetState();
+
+            // Is the A key or C key down?
+            if (newState.IsKeyDown(Keys.A) || newState.IsKeyDown(Keys.C))
+            {
+                // If not down last update, key has just been pressed.
+                if (!oldState.IsKeyDown(Keys.A) || !oldState.IsKeyDown(Keys.C))
+                {
+                    
+                }
+            }
+
+            //Update AABBs' positions
+            else if (oldState.IsKeyDown(Keys.A))
             {
                 aabbOne = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
                 aabbTwo = new AABB(rng.Next(5, 250), rng.Next(5, 250), rng.Next(100, 200), rng.Next(100, 200));
             }
 
-            //Set new position and radii for circle if "C" is pressed
-            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            //Update Circles' position
+            else if (oldState.IsKeyDown(Keys.C))
             {
                 circleOne = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(25, 75));
                 circleTwo = new Circle(rng.Next(400, 600), rng.Next(5, 400), rng.Next(25, 75));
             }
+
+            // Update saved state.
+            oldState = newState;
 
             base.Update(gameTime);
         }

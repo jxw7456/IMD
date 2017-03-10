@@ -39,12 +39,13 @@ namespace Webster_HW_Project1_Spaceship
             get { return position; }
         }
 
+        //Moves the spaceship to maximum speed using acceleration. Letting go of the Up/W button decelerates the ship
         public void Update()
         {
             //Calculate new velocity
             forward.Normalize();
             velocity = forward * speed;
-            
+
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {

@@ -7,7 +7,7 @@ using System;
 //Professor Cascioli
 //Spaceship!
 
-namespace Webster_HW_Project1_Spaceship
+namespace Webster_HW_Project2_Asteroids
 {
     class Spaceship
     {
@@ -15,8 +15,8 @@ namespace Webster_HW_Project1_Spaceship
         float speed; //speed is constant
         float maxSpeed;
         float acceleration;
-        float rotation;        
-        Vector2 forward;
+        public float rotation;
+        public Vector2 forward;
         public Vector2 velocity;
         public Vector2 position;
         public Texture2D ship;
@@ -25,9 +25,9 @@ namespace Webster_HW_Project1_Spaceship
         public Spaceship()
         {
             speed = 0.0f;
-            maxSpeed = 12.0f;
+            maxSpeed = 10.0f;
             acceleration = 0.2f;
-            position = new Vector2(70, 70);
+            position = new Vector2(400, 200);
             velocity = forward * speed;
             rotation = 0.0f;
             forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
@@ -44,7 +44,7 @@ namespace Webster_HW_Project1_Spaceship
             //Calculate new velocity
             forward.Normalize();
             velocity = forward * speed;
-            
+
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
@@ -70,15 +70,21 @@ namespace Webster_HW_Project1_Spaceship
             //Rotate Left
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                rotation -= 0.05f;
+                rotation -= 0.04f;
                 forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
             }
 
             //Rotate Right
             else if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                rotation += 0.05f;
+                rotation += 0.04f;
                 forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
+            }
+
+            //360 rotation, come back to 0 degrees
+            if (rotation >= 6.3f || rotation <= -6.3f)
+            {
+                rotation = 0.0f;
             }
 
             //Decelerate quickly

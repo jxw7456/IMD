@@ -3,7 +3,7 @@
 //Professor Cascioli
 //Spaceship!
 
-namespace Webster_HW_Project1_Spaceship
+namespace Webster_HW_Project2_Asteroids
 {
     /// <summary>
     /// This class contains EXTENSION METHODS, which are standalone methods that

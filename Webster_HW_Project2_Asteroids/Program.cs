@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Webster_HW_Project1_Spaceship
+namespace Webster_HW_Project2_Asteroids
 {
 #if WINDOWS || LINUX
     /// <summary>

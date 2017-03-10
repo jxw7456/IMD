@@ -7,7 +7,7 @@ using System.Collections.Generic;
 //Professor Cascioli
 //Spaceship!
 
-namespace Webster_HW_Project1_Spaceship
+namespace Webster_HW_Project2_Asteroids
 {
     /// <summary>
     /// This is the main type for your game.
@@ -19,8 +19,10 @@ namespace Webster_HW_Project1_Spaceship
         Spaceship spaceship;
         Asteroid follower;
         List<Asteroid> asteroids;
+        Bullet bullet;
         Background background;
-        Texture2D astImage;
+        Texture2D astImg;
+        Texture2D bulletImg;
         Texture2D bgOne;
         Texture2D bgTwo;
         Random rng;
@@ -39,6 +41,12 @@ namespace Webster_HW_Project1_Spaceship
         /// </summary>
         protected override void Initialize()
         {
+            rng = new Random();
+            spaceship = new Spaceship();
+            follower = new Asteroid();
+            bullet = new Bullet(spaceship);
+            asteroids = new List<Asteroid>();
+            background = new Background();
             base.Initialize();
         }
 
@@ -49,13 +57,9 @@ namespace Webster_HW_Project1_Spaceship
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            rng = new Random();
-            spaceship = new Spaceship();
-            follower = new Asteroid();
-            asteroids = new List<Asteroid>();
-            background = new Background();
             spaceship.ship = Content.Load<Texture2D>("ship");
-            astImage = Content.Load<Texture2D>("asteroid");
+            astImg = Content.Load<Texture2D>("asteroid");
+            bulletImg = Content.Load<Texture2D>("bullet");
             bgOne = Content.Load<Texture2D>("backgroundOne");
             bgTwo = Content.Load<Texture2D>("backgroundTwo");
         }
@@ -106,8 +110,9 @@ namespace Webster_HW_Project1_Spaceship
                 }
             }
 
+            //spaceship update
             spaceship.Update();
-            
+
             //Screenwrap for Spaceship
             if (spaceship.position.X > (GraphicsDevice.Viewport.Width + 5))
             {
@@ -128,6 +133,9 @@ namespace Webster_HW_Project1_Spaceship
             {
                 spaceship.position.Y = (GraphicsDevice.Viewport.Height + 5);
             }
+
+            //bullet update
+            bullet.Update(spaceship);
 
             base.Update(gameTime);
         }
@@ -155,10 +163,16 @@ namespace Webster_HW_Project1_Spaceship
 
             for (int i = 0; i > asteroids.Capacity; i++)
             {
-                asteroids[i].Draw(spriteBatch, astImage, Color.White);
+                asteroids[i].Draw(spriteBatch, astImg, Color.White);
             }
 
             spaceship.Draw(spriteBatch, Color.White);
+
+            //Draw Bullet using SPACE Key or LEFT BUTTON on mouse
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) || Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                bullet.Draw(spriteBatch, bulletImg, spaceship, Color.White);
+            }
 
             spriteBatch.End();
 

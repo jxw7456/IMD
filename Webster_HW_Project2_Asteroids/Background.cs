@@ -5,7 +5,7 @@ using System;
 //Professor Cascioli
 //Spaceship!
 
-namespace Webster_HW_Project1_Spaceship
+namespace Webster_HW_Project2_Asteroids
 {
     class Background
     {

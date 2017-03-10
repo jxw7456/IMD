@@ -7,7 +7,7 @@ using System;
 
 namespace Webster_HW_Project1_Spaceship
 {
-    class Follower
+    class Asteroid
     {
         //Fields
         float speed;
@@ -16,7 +16,7 @@ namespace Webster_HW_Project1_Spaceship
         Random rng;
 
         //Constructor
-        public Follower()
+        public Asteroid()
         {
             rng = new Random();
             speed = rng.Next(7);

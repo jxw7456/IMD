@@ -1,0 +1,30 @@
+JaJuan Webster
+IGME 202 Section 2
+
+Homework Project 1 - Spaceship!
+
+User Functionality:
+ - Arrow Keys (WASD keys) create movement and rotation for the spaceship
+
+Reasoning for design choices:
+This project utilizes vectors as a primary concept to recreating an Asteroids-type game scene.
+
+Above and Beyond:
+For this project, I added a outerspace feel background music.
+
+Requirements not completed:
+All requirements were completed.
+
+Used assets:
+	Ship:
+	https://millionthvector.blogspot.com/p/free-sprites.html
+
+	Asteroid:
+	http://www.iconarchive.com/show/bumpy-planets-icons-by-zairaam/asteroid-icon.html
+
+	Background images:
+	https://modernweb.com/building-a-2d-browser-game-with-physicsjs/
+	https://marketplace.yoyogames.com/assets/884/ultimate-starfield
+
+	Background music:
+	https://www.youtube.com/watch?v=fJ09bTPLohM

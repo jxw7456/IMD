@@ -204,7 +204,7 @@ namespace Webster_HW_Project2_Asteroids
         {
             Bullet newBullet = new Bullet(spaceShip);
             newBullet.velocity = new Vector2((float)(Math.Cos(spaceShip.rotation)), (float)Math.Sin(spaceShip.rotation)) * 5.0f + spaceShip.velocity;
-            newBullet.bulletPos = spaceShip.position + newBullet.velocity * 5;
+            newBullet.bulletPos = new Vector2();
             newBullet.isActive = true;
 
             if (bullets.Count < 20)

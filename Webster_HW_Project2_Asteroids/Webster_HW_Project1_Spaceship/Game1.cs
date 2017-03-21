@@ -21,7 +21,7 @@ namespace Webster_HW_Project2_Asteroids
         SpriteBatch spriteBatch;
         Spaceship spaceShip;
         List<Follower> asteroids;
-        Bullet bullet;
+        List<Bullet> bullets;
         Background background;
         Texture2D astroidImage;
         Texture2D bulletImg;
@@ -57,7 +57,7 @@ namespace Webster_HW_Project2_Asteroids
             rng = new Random();
             spaceShip = new Spaceship();
             asteroids = new List<Follower>();
-            bullet = new Bullet(spaceShip);
+            bullets = new List<Bullet>();
             background = new Background();
             spaceShip.ship = Content.Load<Texture2D>("ship");
             astroidImage = Content.Load<Texture2D>("asteroid");
@@ -101,8 +101,29 @@ namespace Webster_HW_Project2_Asteroids
                 f.Update(spaceShip);
             }
 
+            foreach (Bullet b in bullets)
+            {
+                b.bulletPos += b.velocity;
+                if(Vector2.Distance(b.bulletPos, spaceShip.position) > 500)
+                {
+                    b.isActive = false;
+                }
+            }
+
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                if (!bullets[i].isActive)
+                {
+                    bullets.RemoveAt(i);
+                    i--;
+                }
+            }
+
             //bullet update
-            bullet.Update(spaceShip);
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) || Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                bullet.Update(spaceShip);
+            }
 
             //spaceShip update
             spaceShip.Update();
@@ -157,12 +178,16 @@ namespace Webster_HW_Project2_Asteroids
             {
                 f.Draw(spriteBatch, astroidImage, Color.White);
             }
+
             //draw the spaceShip
             spaceShip.Draw(spriteBatch, Color.White);
-            //draw bullet
-            bullet.Draw(spriteBatch, bulletImg, spaceShip, Color.White);
 
-            
+            //bullet update
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) || Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                //draw bullet
+                bullet.Draw(spriteBatch, bulletImg, spaceShip, Color.White);
+            }
 
             spriteBatch.End();
 

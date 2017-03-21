@@ -12,48 +12,32 @@ namespace Webster_HW_Project2_Asteroids
     class Bullet
     {
         //Fields
-        Vector2 bulletPos;
-        Vector2 shipFront;
-        Vector2 velocity;
-        float rotation;
-        float speed;
+        public Vector2 bulletPos;
+        public Vector2 origin;
+        public Vector2 velocity;
+
+        public bool isActive;
 
         //Constructor
         public Bullet(Spaceship spaceship)
         {
-            speed = 3.0f;
-            rotation = 4.75f;
-            velocity = spaceship.forward * speed;
-            shipFront = new Vector2(spaceship.position.X, spaceship.position.Y);
-            bulletPos = new Vector2(shipFront.X, shipFront.Y);
+            isActive = false;
         }
 
         //Update method
         public void Update(Spaceship spaceship)
         {
-            //Rotate Left
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                rotation -= 0.04f;
-            }
-
-            //Rotate Right
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                rotation += 0.04f;
-            }
-
-            velocity = spaceship.forward * speed;
-            bulletPos = new Vector2((float)(Math.Cos(rotation) + shipFront.X), (float)(Math.Sin(rotation) + shipFront.Y));
-            //bulletPos += velocity;
+            velocity = new Vector2((float)(Math.Cos(spaceship.rotation)), (float)Math.Sin(spaceship.rotation) * 5.0f + spaceship.velocity.Y);
+            bulletPos = spaceship.position + velocity * 5;
+            bulletPos += velocity;
+            isActive = true;
         }
 
         //Draw method
-        public void Draw(SpriteBatch spriteBatch, Texture2D bullet, Spaceship spaceship, Color color)
+        public void Draw(SpriteBatch spriteBatch, Texture2D bullet)
         {
 
-            spriteBatch.Draw(bullet, null, new Rectangle((int)bulletPos.X, (int)bulletPos.Y, (bullet.Width / 5), (bullet.Height / 5)),
-                null, new Vector2((spaceship.ship.Width /2), (spaceship.ship.Height / 2)), rotation, null, color, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(bullet, bulletPos, null, Color.White, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
         }
     }
 }

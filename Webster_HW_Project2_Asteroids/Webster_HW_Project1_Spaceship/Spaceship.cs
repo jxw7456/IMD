@@ -15,7 +15,7 @@ namespace Webster_HW_Project2_Asteroids
         float speed; //speed is constant
         float maxSpeed;
         float acceleration;
-        float rotation;        
+        public float rotation;        
         public Vector2 forward;
         public Vector2 velocity;
         public Vector2 position;

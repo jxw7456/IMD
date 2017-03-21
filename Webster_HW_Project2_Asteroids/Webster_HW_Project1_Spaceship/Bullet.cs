@@ -27,9 +27,8 @@ namespace Webster_HW_Project2_Asteroids
         //Update method
         public void Update(Spaceship spaceship)
         {
-            velocity = new Vector2((float)(Math.Cos(spaceship.rotation)), (float)Math.Sin(spaceship.rotation) * 5.0f + spaceship.velocity.Y);
+            velocity = new Vector2((float)(Math.Cos(spaceship.rotation)), (float)Math.Sin(spaceship.rotation)) * 5.0f + spaceship.velocity;
             bulletPos = spaceship.position + velocity * 5;
-            bulletPos += velocity;
             isActive = true;
         }
 

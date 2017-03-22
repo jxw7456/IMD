@@ -102,10 +102,14 @@ namespace Webster_HW_Project2_Asteroids
                 f.Update(spaceShip);
             }
 
+            // PROBLEM AREA    
+            // |
+            // V
+
             //bullet update
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && prevKey.IsKeyUp(Keys.Space))
             {
-                Shoot();                
+                Shoot();
             }
 
             prevKey = Keyboard.GetState();
@@ -165,12 +169,16 @@ namespace Webster_HW_Project2_Asteroids
                 f.Draw(spriteBatch, astroidImage, Color.White);
             }
 
+            // PROBLEM AREA    
+            // |
+            // V
+
             //draw the spaceShip
             spaceShip.Draw(spriteBatch, Color.White);
 
             foreach (Bullet b in bullets)
             {
-                b.Draw(spriteBatch, bulletImg);
+                b.Draw(spriteBatch, bulletImg, spaceShip);
             }
 
             spriteBatch.End();
@@ -183,10 +191,12 @@ namespace Webster_HW_Project2_Asteroids
             foreach (Bullet b in bullets)
             {
                 b.bulletPos += b.velocity;
+
                 if (Vector2.Distance(b.bulletPos, spaceShip.position) > 500)
                 {
                     b.isActive = false;
                 }
+
             }
 
             for (int i = 0; i < bullets.Count; i++)
@@ -202,15 +212,16 @@ namespace Webster_HW_Project2_Asteroids
         //Update method
         public void Shoot()
         {
-            Bullet newBullet = new Bullet(spaceShip);
+            Bullet newBullet = new Bullet();
             newBullet.velocity = new Vector2((float)(Math.Cos(spaceShip.rotation)), (float)Math.Sin(spaceShip.rotation)) * 5.0f + spaceShip.velocity;
-            newBullet.bulletPos = new Vector2();
+            newBullet.bulletPos = spaceShip.Position;
             newBullet.isActive = true;
 
             if (bullets.Count < 20)
             {
                 bullets.Add(newBullet);
             }
+
         }
     }
 }

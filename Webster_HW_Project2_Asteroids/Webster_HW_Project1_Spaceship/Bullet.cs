@@ -21,6 +21,7 @@ namespace Webster_HW_Project2_Asteroids
         //Constructor
         public Bullet(Spaceship spaceship)
         {
+            origin = new Vector2(0, 0);
             isActive = false;
         }              
 

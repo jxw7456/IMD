@@ -12,9 +12,10 @@ namespace Webster_HW_Project2_Asteroids
     {
         //Fields
         public float speed;
+        public float radius;
         public int spawn;
         public Vector2 position;
-        public Vector2 direction;
+        public Vector2 direction;        
         Random rng;
 
         //Constructor

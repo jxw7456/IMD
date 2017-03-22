@@ -21,6 +21,7 @@ namespace Webster_HW_Project2_Asteroids
         SpriteBatch spriteBatch;
         Spaceship spaceShip;
         List<Follower> asteroids;
+        Bullet fire;
         List<Bullet> bullets;
         Background background;
         Texture2D astroidImage;
@@ -58,6 +59,7 @@ namespace Webster_HW_Project2_Asteroids
             rng = new Random();
             spaceShip = new Spaceship();
             asteroids = new List<Follower>();
+            fire = new Bullet();
             bullets = new List<Bullet>();
             background = new Background();
             spaceShip.ship = Content.Load<Texture2D>("ship");
@@ -97,17 +99,17 @@ namespace Webster_HW_Project2_Asteroids
             //foreach loop for asteroid update
             foreach (Follower f in asteroids)
             {
-                f.Update(spaceShip, GraphicsDevice);                
+                f.Update(spaceShip, GraphicsDevice);
             }
 
             //bullet update
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && prevKey.IsKeyUp(Keys.Space))
             {
-                Shoot();
+                fire.Shoot(bullets, spaceShip);
             }
 
             prevKey = Keyboard.GetState();
-            UpdateBullets();
+            fire.UpdateBullets(bullets, spaceShip);
 
             //spaceShip update
             spaceShip.Update();
@@ -167,54 +169,13 @@ namespace Webster_HW_Project2_Asteroids
             {
                 b.Draw(spriteBatch, bulletImg, spaceShip);
             }
-            
+
             //draw the spaceShip
             spaceShip.Draw(spriteBatch, Color.White);
-
-
-
+            
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        //Update moving and removing bullets from list
-        public void UpdateBullets()
-        {
-            foreach (Bullet b in bullets)
-            {
-                b.bulletPos += b.velocity;
-
-                if (Vector2.Distance(b.bulletPos, spaceShip.position) > 900)
-                {
-                    b.isActive = false;
-                }
-
-            }
-
-            for (int i = 0; i < bullets.Count; i++)
-            {
-                if (!bullets[i].isActive)
-                {
-                    bullets.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
-
-        //Update method
-        public void Shoot()
-        {
-            Bullet newBullet = new Bullet();
-            newBullet.velocity = new Vector2((float)(Math.Cos(spaceShip.rotation)), (float)Math.Sin(spaceShip.rotation)) * 5.0f + spaceShip.velocity;
-            newBullet.bulletPos.X += ((spaceShip.Position.X - 20) + newBullet.velocity.X * 15.0f);
-            newBullet.bulletPos.Y += (spaceShip.Position.Y + newBullet.velocity.Y * 15.0f);
-            newBullet.isActive = true;
-
-            if (bullets.Count < 20)
-            {
-                bullets.Add(newBullet);
-            }
         }
     }
 }

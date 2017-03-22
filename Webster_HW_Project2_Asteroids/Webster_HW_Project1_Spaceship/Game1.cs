@@ -68,12 +68,10 @@ namespace Webster_HW_Project2_Asteroids
             bgMusic = Content.Load<Song>("bgMusic");
             MediaPlayer.Play(bgMusic);
 
-            //Add followers to the list of asteroids
-            for (int i = 0; i < 11; i++)
+            //Create list of asteroids
+            for (int i = 0; i < 5; i++)
             {
-                asteroids.Add(new Follower(new Rectangle(rng.Next(0, 600), rng.Next(0, 200),
-                    rng.Next(60, 150), rng.Next(60, 150)),
-                    rng.Next(1, 7)));  //Random position, size, and speed
+                asteroids.Add(new Follower(GraphicsDevice, rng.Next(0, 3), rng));
             }
         }
 
@@ -99,12 +97,8 @@ namespace Webster_HW_Project2_Asteroids
             //foreach loop for asteroid update
             foreach (Follower f in asteroids)
             {
-                f.Update(spaceShip);
+                f.Update(spaceShip, GraphicsDevice);                
             }
-
-            // PROBLEM AREA    
-            // |
-            // V
 
             //bullet update
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && prevKey.IsKeyUp(Keys.Space))
@@ -173,11 +167,7 @@ namespace Webster_HW_Project2_Asteroids
             {
                 b.Draw(spriteBatch, bulletImg, spaceShip);
             }
-
-            // PROBLEM AREA    
-            // |
-            // V
-
+            
             //draw the spaceShip
             spaceShip.Draw(spriteBatch, Color.White);
 
@@ -188,13 +178,14 @@ namespace Webster_HW_Project2_Asteroids
             base.Draw(gameTime);
         }
 
+        //Update moving and removing bullets from list
         public void UpdateBullets()
         {
             foreach (Bullet b in bullets)
             {
                 b.bulletPos += b.velocity;
 
-                if (Vector2.Distance(b.bulletPos, spaceShip.position) > 500)
+                if (Vector2.Distance(b.bulletPos, spaceShip.position) > 900)
                 {
                     b.isActive = false;
                 }

@@ -169,6 +169,11 @@ namespace Webster_HW_Project2_Asteroids
                 f.Draw(spriteBatch, astroidImage, Color.White);
             }
 
+            foreach (Bullet b in bullets)
+            {
+                b.Draw(spriteBatch, bulletImg, spaceShip);
+            }
+
             // PROBLEM AREA    
             // |
             // V
@@ -176,10 +181,7 @@ namespace Webster_HW_Project2_Asteroids
             //draw the spaceShip
             spaceShip.Draw(spriteBatch, Color.White);
 
-            foreach (Bullet b in bullets)
-            {
-                b.Draw(spriteBatch, bulletImg, spaceShip);
-            }
+
 
             spriteBatch.End();
 
@@ -214,14 +216,14 @@ namespace Webster_HW_Project2_Asteroids
         {
             Bullet newBullet = new Bullet();
             newBullet.velocity = new Vector2((float)(Math.Cos(spaceShip.rotation)), (float)Math.Sin(spaceShip.rotation)) * 5.0f + spaceShip.velocity;
-            newBullet.bulletPos = spaceShip.Position;
+            newBullet.bulletPos.X += ((spaceShip.Position.X - 20) + newBullet.velocity.X * 15.0f);
+            newBullet.bulletPos.Y += (spaceShip.Position.Y + newBullet.velocity.Y * 15.0f);
             newBullet.isActive = true;
 
             if (bullets.Count < 20)
             {
                 bullets.Add(newBullet);
             }
-
         }
     }
 }

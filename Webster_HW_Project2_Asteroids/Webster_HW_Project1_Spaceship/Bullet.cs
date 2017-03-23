@@ -36,7 +36,6 @@ namespace Webster_HW_Project2_Asteroids
                 {
                     b.isActive = false;
                 }
-
             }
 
             for (int i = 0; i < bullets.Count; i++)
@@ -47,6 +46,18 @@ namespace Webster_HW_Project2_Asteroids
                     i--;
                 }
             }
+        }
+
+        //Checks if two circles are intersecting and returning a boolean
+        public bool Intersects(Follower asteroid, Texture2D img, Texture2D otherImg)
+        {
+            double distance = Math.Sqrt(Math.Pow(asteroid.position.X - bulletPos.X, 2) + Math.Pow(asteroid.position.Y - bulletPos.Y, 2));
+            if (distance > ((img.Width / 3) + otherImg.Width / 3))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         //Update method

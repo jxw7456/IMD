@@ -52,6 +52,18 @@ namespace Webster_HW_Project2_Asteroids
             speed = 0.0f;
         }
 
+        //Checks if two circles are intersecting and returning a boolean
+        public bool Intersects(Spaceship ship, Texture2D img)
+        {
+            double distance = Math.Sqrt(Math.Pow(ship.position.X - position.X, 2) + Math.Pow(ship.position.Y - position.Y, 2));
+            if (distance > ((img.Width / 3) + ship.ship.Width / 2))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         //Track the position and movement of the asteroid
         public void Update(Spaceship spaceship, GraphicsDevice graphics)
         {

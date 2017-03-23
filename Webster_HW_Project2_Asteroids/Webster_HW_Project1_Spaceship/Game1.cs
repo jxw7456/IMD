@@ -22,14 +22,14 @@ namespace Webster_HW_Project2_Asteroids
         Spaceship spaceShip;
         List<Follower> asteroids;
         Bullet fire;
-        List<Bullet> bullets;        
+        List<Bullet> bullets;
+        Circle circle;
         Background background;
         Texture2D shipImg;
         Texture2D astroidImg;
         Texture2D bulletImg;
         Texture2D bgOne;
         Texture2D bgTwo;
-        Texture2D circle;
         Random rng;
         Song bgMusic;
         KeyboardState prevKey;
@@ -57,11 +57,10 @@ namespace Webster_HW_Project2_Asteroids
         /// </summary>
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);                        
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             shipImg = Content.Load<Texture2D>("ship");
             astroidImg = Content.Load<Texture2D>("asteroid");
             bulletImg = Content.Load<Texture2D>("bullet");
-            circle = Content.Load<Texture2D>("circle");
             bgOne = Content.Load<Texture2D>("backgroundOne");
             bgTwo = Content.Load<Texture2D>("backgroundTwo");
             bgMusic = Content.Load<Song>("bgMusic");
@@ -71,6 +70,7 @@ namespace Webster_HW_Project2_Asteroids
             asteroids = new List<Follower>();
             fire = new Bullet();
             bullets = new List<Bullet>();
+            circle = new Circle(spriteBatch, GraphicsDevice);
             background = new Background();
 
             //Create list of asteroids
@@ -162,21 +162,46 @@ namespace Webster_HW_Project2_Asteroids
                 spriteBatch.Draw(bgTwo, new Vector2(0, 0), Color.White);
             }
 
+
+            spaceShip.Draw(spriteBatch, Color.White);
+
+
             //draw all the asteroids
             foreach (Follower f in asteroids)
             {
                 f.Draw(spriteBatch, astroidImg, Color.White);
+                circle.DrawCircle((int)f.position.X, (int)f.position.Y, astroidImg.Width / 3, 1000, Color.Red);
+                if (f.Intersects(spaceShip, bulletImg) == true)
+                {
+                    spaceShip.isActive = false;
+                    spaceShip.timer++;
+
+                    if (spaceShip.timer > 60.0f)
+                    {
+                        spaceShip.position = new Vector2(400, 200);
+                        spaceShip.timer = 0.0f;
+                        spaceShip.isActive = true;
+                    }
+                }
             }
 
             foreach (Bullet b in bullets)
             {
                 b.Draw(spriteBatch, bulletImg, spaceShip);
+                circle.DrawCircle((int)b.bulletPos.X + 18, (int)b.bulletPos.Y + 20, bulletImg.Width / 3, 1000, Color.Green);
+                foreach (Follower f in asteroids)
+                {
+                    if (b.Intersects(f, bulletImg, astroidImg) == true)
+                    {
+                        f.Draw(spriteBatch, astroidImg, Color.Red);
+                    }
+                }
             }
 
-            spriteBatch.Draw(circle, spaceShip.position, null, null, spaceShip.origin, 0.0f, null, Color.Red, SpriteEffects.None, 0.0f);
+            circle.DrawCircle((int)spaceShip.position.X, (int)spaceShip.position.Y, spaceShip.ship.Width / 2, 1000, Color.Blue);
 
-            spaceShip.Draw(spriteBatch, Color.White);
-            
+
+
             spriteBatch.End();
 
             base.Draw(gameTime);

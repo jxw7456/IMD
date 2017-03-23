@@ -15,22 +15,27 @@ namespace Webster_HW_Project2_Asteroids
         float speed; //speed is constant
         float maxSpeed;
         float acceleration;
-        public float rotation;        
+        public float rotation;
+        public Vector2 origin;
         public Vector2 forward;
         public Vector2 velocity;
         public Vector2 position;
         public Texture2D ship;
+        public Circle collision;
 
         //Constructor
-        public Spaceship()
+        public Spaceship(Texture2D shp)
         {
+            ship = shp;
             speed = 0.0f;
             maxSpeed = 12.0f;
             acceleration = 0.2f;
-            position = new Vector2(400, 200);
             velocity = forward * speed;
             rotation = 4.75f;
+            position = new Vector2(400, 200);
             forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
+            origin = new Vector2((ship.Width / 2), (ship.Height / 2));
+            collision = new Circle(origin.X, origin.Y, ship.Width);
         }
 
         //Get position
@@ -45,7 +50,7 @@ namespace Webster_HW_Project2_Asteroids
             //Calculate new velocity
             forward.Normalize();
             velocity = forward * speed;
-            
+
             //Forward
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
@@ -95,7 +100,7 @@ namespace Webster_HW_Project2_Asteroids
         //Draw the ship
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(ship, position, null, null, new Vector2((ship.Width / 2), (ship.Height / 2)), (rotation + 1.55f), null, color, SpriteEffects.None, 0);
+            spriteBatch.Draw(ship, position, null, null, origin, (rotation + 1.55f), null, color, SpriteEffects.None, 0);
         }
     }
 }

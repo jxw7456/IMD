@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Background.cs" />
     <Compile Include="Bullet.cs" />
+    <Compile Include="Circle.cs" />
     <Compile Include="Follower.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />

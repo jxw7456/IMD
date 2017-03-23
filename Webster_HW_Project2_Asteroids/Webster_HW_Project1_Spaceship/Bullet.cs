@@ -15,7 +15,6 @@ namespace Webster_HW_Project2_Asteroids
         public Vector2 bulletPos;
         public Vector2 origin;
         public Vector2 velocity;
-        float radius;
 
         public bool isActive;
 
@@ -63,18 +62,6 @@ namespace Webster_HW_Project2_Asteroids
             {
                 bullets.Add(newBullet);
             }
-        }
-
-        //Checks if bullet intersects with asteroid
-        public bool Intersects(Follower asteroid)
-        {
-            double distance = Math.Sqrt(Math.Pow(asteroid.position.X - bulletPos.X, 2) + Math.Pow(asteroid.position.Y - bulletPos.Y, 2));
-            if (distance > (radius + asteroid.radius))
-            {
-                return false;
-            }
-
-            return true;
         }
 
         //Draw method

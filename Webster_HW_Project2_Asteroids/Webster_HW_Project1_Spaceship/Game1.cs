@@ -22,12 +22,14 @@ namespace Webster_HW_Project2_Asteroids
         Spaceship spaceShip;
         List<Follower> asteroids;
         Bullet fire;
-        List<Bullet> bullets;
+        List<Bullet> bullets;        
         Background background;
-        Texture2D astroidImage;
+        Texture2D shipImg;
+        Texture2D astroidImg;
         Texture2D bulletImg;
         Texture2D bgOne;
         Texture2D bgTwo;
+        Texture2D circle;
         Random rng;
         Song bgMusic;
         KeyboardState prevKey;
@@ -55,20 +57,21 @@ namespace Webster_HW_Project2_Asteroids
         /// </summary>
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            rng = new Random();
-            spaceShip = new Spaceship();
-            asteroids = new List<Follower>();
-            fire = new Bullet();
-            bullets = new List<Bullet>();
-            background = new Background();
-            spaceShip.ship = Content.Load<Texture2D>("ship");
-            astroidImage = Content.Load<Texture2D>("asteroid");
+            spriteBatch = new SpriteBatch(GraphicsDevice);                        
+            shipImg = Content.Load<Texture2D>("ship");
+            astroidImg = Content.Load<Texture2D>("asteroid");
             bulletImg = Content.Load<Texture2D>("bullet");
+            circle = Content.Load<Texture2D>("circle");
             bgOne = Content.Load<Texture2D>("backgroundOne");
             bgTwo = Content.Load<Texture2D>("backgroundTwo");
             bgMusic = Content.Load<Song>("bgMusic");
             MediaPlayer.Play(bgMusic);
+            rng = new Random();
+            spaceShip = new Spaceship(shipImg);
+            asteroids = new List<Follower>();
+            fire = new Bullet();
+            bullets = new List<Bullet>();
+            background = new Background();
 
             //Create list of asteroids
             for (int i = 0; i < 5; i++)
@@ -162,7 +165,7 @@ namespace Webster_HW_Project2_Asteroids
             //draw all the asteroids
             foreach (Follower f in asteroids)
             {
-                f.Draw(spriteBatch, astroidImage, Color.White);
+                f.Draw(spriteBatch, astroidImg, Color.White);
             }
 
             foreach (Bullet b in bullets)
@@ -170,7 +173,8 @@ namespace Webster_HW_Project2_Asteroids
                 b.Draw(spriteBatch, bulletImg, spaceShip);
             }
 
-            //draw the spaceShip
+            spriteBatch.Draw(circle, spaceShip.position, null, null, spaceShip.origin, 0.0f, null, Color.Red, SpriteEffects.None, 0.0f);
+
             spaceShip.Draw(spriteBatch, Color.White);
             
             spriteBatch.End();

@@ -98,16 +98,15 @@ namespace Webster_HW_Project2_Asteroids
 
                 //Movement
                 position += velocity;
-            }            
+            }
+
+            
         }
 
         //Draw the ship
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            if (isActive == true)
-            {
-                spriteBatch.Draw(ship, position, null, null, origin, (rotation + 1.55f), null, color, SpriteEffects.None, 0);
-            }            
+            spriteBatch.Draw(ship, position, null, null, origin, (rotation + 1.55f), null, color, SpriteEffects.None, 0);                       
         }
     }
 }

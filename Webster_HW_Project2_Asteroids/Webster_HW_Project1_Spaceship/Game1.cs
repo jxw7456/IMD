@@ -27,6 +27,8 @@ namespace Webster_HW_Project2_Asteroids
         Background background;
         Texture2D shipImg;
         Texture2D astroidImg;
+        Texture2D astroidImg2;
+        Texture2D astroidImg3;
         Texture2D bulletImg;
         Texture2D bgOne;
         Texture2D bgTwo;
@@ -60,6 +62,8 @@ namespace Webster_HW_Project2_Asteroids
             spriteBatch = new SpriteBatch(GraphicsDevice);
             shipImg = Content.Load<Texture2D>("ship");
             astroidImg = Content.Load<Texture2D>("asteroid");
+            astroidImg2 = Content.Load<Texture2D>("2asteroid");
+            astroidImg3 = Content.Load<Texture2D>("3asteroid");
             bulletImg = Content.Load<Texture2D>("bullet");
             bgOne = Content.Load<Texture2D>("backgroundOne");
             bgTwo = Content.Load<Texture2D>("backgroundTwo");
@@ -103,7 +107,22 @@ namespace Webster_HW_Project2_Asteroids
             foreach (Follower f in asteroids)
             {
                 f.Update(spaceShip, GraphicsDevice);
-            }
+                if (f.Intersects(spaceShip, astroidImg) == true)
+                {
+                    spaceShip.isActive = false;
+                    spaceShip.timer += 1.0f;
+                    spaceShip.position.X = 1000;
+                    spaceShip.position.Y = 1000;
+
+                    if (spaceShip.timer >= 60.0f)
+                    {
+                        spaceShip.position.X = 400;
+                        spaceShip.position.Y = 200;
+                        spaceShip.timer = 0.0f;
+                        spaceShip.isActive = true;
+                    }
+                }
+            }            
 
             //bullet update
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && prevKey.IsKeyUp(Keys.Space))
@@ -163,26 +182,17 @@ namespace Webster_HW_Project2_Asteroids
             }
 
 
-            spaceShip.Draw(spriteBatch, Color.White);
+            if (spaceShip.isActive == true)
+            {
+                spaceShip.Draw(spriteBatch, Color.White);
+            }
 
 
             //draw all the asteroids
             foreach (Follower f in asteroids)
             {
                 f.Draw(spriteBatch, astroidImg, Color.White);
-                circle.DrawCircle((int)f.position.X, (int)f.position.Y, astroidImg.Width / 3, 1000, Color.Red);
-                if (f.Intersects(spaceShip, bulletImg) == true)
-                {
-                    spaceShip.isActive = false;
-                    spaceShip.timer++;
-
-                    if (spaceShip.timer > 60.0f)
-                    {
-                        spaceShip.position = new Vector2(400, 200);
-                        spaceShip.timer = 0.0f;
-                        spaceShip.isActive = true;
-                    }
-                }
+                circle.DrawCircle((int)f.position.X, (int)f.position.Y, astroidImg.Width / 3, 1000, Color.Red);                
             }
 
             foreach (Bullet b in bullets)
@@ -192,15 +202,19 @@ namespace Webster_HW_Project2_Asteroids
                 foreach (Follower f in asteroids)
                 {
                     if (b.Intersects(f, bulletImg, astroidImg) == true)
-                    {
-                        f.Draw(spriteBatch, astroidImg, Color.Red);
+                    {                        
+                        Follower astSplit = new Follower(GraphicsDevice, rng.Next(0, 3), rng);
+                        Follower astSplit2 = new Follower(GraphicsDevice, rng.Next(0, 3), rng);
+                        asteroids.Add(astSplit);
+                        asteroids.Add(astSplit2);
+                        spriteBatch.Draw(astroidImg2, new Rectangle((int)f.position.X, (int)f.position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
+                        spriteBatch.Draw(astroidImg3, new Rectangle((int)f.position.X, (int)f.position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
+                        //asteroids.Remove(f);
                     }
                 }
             }
 
             circle.DrawCircle((int)spaceShip.position.X, (int)spaceShip.position.Y, spaceShip.ship.Width / 2, 1000, Color.Blue);
-
-
 
             spriteBatch.End();
 

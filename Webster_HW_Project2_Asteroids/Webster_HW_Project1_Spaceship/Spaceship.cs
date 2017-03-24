@@ -12,7 +12,7 @@ namespace Webster_HW_Project2_Asteroids
     class Spaceship
     {
         //Fields
-        float speed; //speed is constant
+        public float speed; //speed is constant
         float maxSpeed;
         float acceleration;
         public float rotation;
@@ -48,7 +48,7 @@ namespace Webster_HW_Project2_Asteroids
         //Moves the spaceship to maximum speed using acceleration. Letting go of the Up/W button decelerates the ship
         public void Update()
         {
-            if(isActive == true)
+            if (isActive == true)
             {
                 //Calculate new velocity
                 forward.Normalize();
@@ -100,13 +100,13 @@ namespace Webster_HW_Project2_Asteroids
                 position += velocity;
             }
 
-            
+
         }
 
         //Draw the ship
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(ship, position, null, null, origin, (rotation + 1.55f), null, color, SpriteEffects.None, 0);                       
+            spriteBatch.Draw(ship, position, null, null, origin, (rotation + 1.55f), null, color, SpriteEffects.None, 0);
         }
     }
 }

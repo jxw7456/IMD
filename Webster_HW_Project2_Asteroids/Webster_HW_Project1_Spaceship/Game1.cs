@@ -209,7 +209,7 @@ namespace Webster_HW_Project2_Asteroids
                         asteroids.Add(astSplit2);
                         spriteBatch.Draw(astroidImg2, new Rectangle((int)f.position.X, (int)f.position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
                         spriteBatch.Draw(astroidImg3, new Rectangle((int)f.position.X, (int)f.position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
-                        //asteroids.Remove(f);
+                        asteroids.Remove(f);
                     }
                 }
             }

@@ -199,17 +199,17 @@ namespace Webster_HW_Project2_Asteroids
             {
                 b.Draw(spriteBatch, bulletImg, spaceShip);
                 circle.DrawCircle((int)b.bulletPos.X + 18, (int)b.bulletPos.Y + 20, bulletImg.Width / 3, 1000, Color.Green);
-                foreach (Follower f in asteroids)
+                for(int i = 0; i < asteroids.Count; i++)
                 {
-                    if (b.Intersects(f, bulletImg, astroidImg) == true)
+                    if (b.Intersects(asteroids[i], bulletImg, astroidImg) == true)
                     {                        
                         Follower astSplit = new Follower(GraphicsDevice, rng.Next(0, 3), rng);
                         Follower astSplit2 = new Follower(GraphicsDevice, rng.Next(0, 3), rng);
                         asteroids.Add(astSplit);
                         asteroids.Add(astSplit2);
-                        spriteBatch.Draw(astroidImg2, new Rectangle((int)f.position.X, (int)f.position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
-                        spriteBatch.Draw(astroidImg3, new Rectangle((int)f.position.X, (int)f.position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
-                        //asteroids.Remove(f);
+                        spriteBatch.Draw(astroidImg2, new Rectangle((int)asteroids[i].position.X, (int)asteroids[i].position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
+                        spriteBatch.Draw(astroidImg3, new Rectangle((int)asteroids[i].position.X, (int)asteroids[i].position.Y, astroidImg2.Width, astroidImg2.Height), Color.White);
+                        asteroids.RemoveAt(i);
                     }
                 }
             }

@@ -20,12 +20,12 @@ namespace Webster_HW_Project2_Asteroids
         Random rng;
 
         //Constructor
-        public Follower(GraphicsDevice graphics, int spn, Random rand, Rectangle rect, Texture2D img)
+        public Follower(GraphicsDevice graphics, Random rand, Rectangle rect, Texture2D img)
         {
             rectangle = rect;
             image = img;
             rng = rand;
-            spawn = spn;
+            spawn = rand.Next(0, 3);
             //Top
             if (spawn == 0)
             {
@@ -102,6 +102,12 @@ namespace Webster_HW_Project2_Asteroids
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
             spriteBatch.Draw(image, position, null, rectangle, new Vector2((image.Width / 2), (image.Height / 2)), 0.0f, null, color, SpriteEffects.None, 0);
+        }
+
+        //Draws the follower(asteroids)
+        public void DrawNewAsteroids(SpriteBatch spriteBatch, Color color)
+        {
+            spriteBatch.Draw(image, position, null, rectangle, new Vector2((image.Width / 2), (image.Height / 2)), 0.0f, new Vector2(0.5f, 0.5f), color, SpriteEffects.None, 0);
         }
     }
 }

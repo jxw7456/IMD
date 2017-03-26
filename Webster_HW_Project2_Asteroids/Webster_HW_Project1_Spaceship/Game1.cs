@@ -8,7 +8,7 @@ using System.Collections.Generic;
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
-//ABOVE AND BEYOND: Background Music
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
@@ -17,6 +17,7 @@ namespace Webster_HW_Project2_Asteroids
     /// </summary>
     public class Game1 : Game
     {
+        //Fields
         GraphicsDeviceManager graphics;
         GameManager game;
         SpriteBatch spriteBatch;
@@ -24,9 +25,8 @@ namespace Webster_HW_Project2_Asteroids
         List<Texture2D> lives;
         List<Follower> asteroids;
         List<Follower> newAsteroids;
-        Bullet fire;
         List<Bullet> bullets;
-        Circle circle;
+        Bullet fire;
         Background background;
         Texture2D shipImg;
         Texture2D astroidImg;
@@ -34,10 +34,11 @@ namespace Webster_HW_Project2_Asteroids
         Texture2D bgOne;
         Texture2D bgTwo;
         Random rng;
-        Song bgMusic;
+        Circle circle;
         KeyboardState prevKey;
         SpriteFont bold;
         SpriteFont menu;
+        Song bgMusic;
         bool alive;
 
         public Game1()
@@ -63,7 +64,7 @@ namespace Webster_HW_Project2_Asteroids
         /// </summary>
         protected override void LoadContent()
         {
-            //Fields
+            //Load
             spriteBatch = new SpriteBatch(GraphicsDevice);
             shipImg = Content.Load<Texture2D>("ship");
             astroidImg = Content.Load<Texture2D>("asteroid");
@@ -73,7 +74,6 @@ namespace Webster_HW_Project2_Asteroids
             bold = Content.Load<SpriteFont>("boldFont");
             menu = Content.Load<SpriteFont>("menu");
             bgMusic = Content.Load<Song>("bgMusic");
-            MediaPlayer.Play(bgMusic);
             rng = new Random();
             spaceShip = new Spaceship(shipImg);
             asteroids = new List<Follower>();
@@ -86,6 +86,7 @@ namespace Webster_HW_Project2_Asteroids
             alive = true;
             game = new GameManager();
             game.state = GameState.START;
+            MediaPlayer.Play(bgMusic);
 
             //Create list of asteroids
             for (int i = 0; i < 5; i++)
@@ -129,6 +130,7 @@ namespace Webster_HW_Project2_Asteroids
             {
                 //START MENU
                 case GameState.START:
+
                     if (Keyboard.GetState().IsKeyDown(Keys.F3))
                     {
                         game.state = GameState.GAME;
@@ -137,6 +139,7 @@ namespace Webster_HW_Project2_Asteroids
 
                 //GAME MENU
                 case GameState.GAME:
+
                     //Randomize for the optional images
                     if (rng.Next(0, 3) == 0)
                     {
@@ -243,7 +246,6 @@ namespace Webster_HW_Project2_Asteroids
                         }
                     }
 
-
                     //shoot bullets ONLY if the ship is active
                     if (spaceShip.isActive == true)
                     {
@@ -281,7 +283,7 @@ namespace Webster_HW_Project2_Asteroids
                         spaceShip.position.Y = (GraphicsDevice.Viewport.Height + 5);
                     }
 
-                    if (spaceShip.i == 0)
+                    if (spaceShip.i < 0)
                     {
                         MediaPlayer.Stop();
                         game.state = GameState.GAMEOVER;
@@ -291,6 +293,7 @@ namespace Webster_HW_Project2_Asteroids
 
                 //GAME OVER MENU
                 case GameState.GAMEOVER:
+
                     if (Keyboard.GetState().IsKeyDown(Keys.F3))
                     {
                         //Reset key attritbutes
@@ -304,13 +307,14 @@ namespace Webster_HW_Project2_Asteroids
                         spaceShip.isActive = true;
                         spaceShip.i = 2;
                         fire.score = 0;
+                        spaceShip.lives.Clear();
                         asteroids.Clear();
                         newAsteroids.Clear();
 
                         //Create new list of lives
                         for (int i = 0; i < 3; i++)
                         {
-                            lives.Add(shipImg);
+                            spaceShip.lives.Add(alive);
                         }
 
                         //Create new list of asteroids
@@ -341,6 +345,7 @@ namespace Webster_HW_Project2_Asteroids
             {
                 //START MENU
                 case GameState.START:
+
                     //Drawing the background image using the Random Gaussian
                     if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
                     {
@@ -357,6 +362,7 @@ namespace Webster_HW_Project2_Asteroids
 
                 //GAME MENU
                 case GameState.GAME:
+
                     //Drawing the background image using the Random Gaussian
                     if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
                     {
@@ -418,6 +424,7 @@ namespace Webster_HW_Project2_Asteroids
 
                 //GAME OVER MENU
                 case GameState.GAMEOVER:
+
                     //Drawing the background image using the Random Gaussian
                     if (RandomExtensionMethods.Gaussian(rng, 4.5, 1.8) > 4.5)
                     {
@@ -444,7 +451,6 @@ namespace Webster_HW_Project2_Asteroids
                         f.DrawNewAsteroids(spriteBatch, Color.White);
                     }
                     break;
-
             }
 
             spriteBatch.End();

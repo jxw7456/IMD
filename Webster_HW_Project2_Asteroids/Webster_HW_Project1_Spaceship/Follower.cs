@@ -5,6 +5,7 @@ using System;
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
@@ -16,7 +17,7 @@ namespace Webster_HW_Project2_Asteroids
         public Vector2 position;
         public Vector2 direction;
         public Texture2D image;
-        public Rectangle rectangle;      
+        public Rectangle rectangle;
         Random rng;
 
         //Constructor

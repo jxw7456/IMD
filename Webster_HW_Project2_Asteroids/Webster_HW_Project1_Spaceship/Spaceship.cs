@@ -7,6 +7,7 @@ using System.Collections.Generic;
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
@@ -29,7 +30,7 @@ namespace Webster_HW_Project2_Asteroids
 
         //Constructor
         public Spaceship(Texture2D shp)
-        {            
+        {
             i = 2;
             isActive = true;
             ship = shp;
@@ -105,8 +106,6 @@ namespace Webster_HW_Project2_Asteroids
                 //Movement
                 position += velocity;
             }
-
-
         }
 
         //Draw the ship

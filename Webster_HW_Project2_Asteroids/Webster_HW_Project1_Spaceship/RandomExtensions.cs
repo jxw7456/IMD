@@ -3,6 +3,7 @@
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
@@ -40,16 +41,13 @@ namespace Webster_HW_Project2_Asteroids
             // Adjust the value to take our parameters into account
             return mean + standardDeviation * gaussValue;
         }
-
-
-
+        
         // PERLIN NOISE -------------------------------------------------------
         // Implementation from:
         // https://gist.github.com/Flafla2/1a0b9ebef678bbce3215
 
         // Original can be found at ken perlin's website:
         // http://mrl.nyu.edu/~perlin/noise/
-
 
         // Perlin noise - required fields
         private static bool perlinInitialized = false;
@@ -170,8 +168,7 @@ namespace Webster_HW_Project2_Asteroids
             int b = p[xi + 1] + yi;
             int ba = p[b] + zi;
             int bb = p[b + 1] + zi;
-
-
+            
             // This is where the "magic" happens.  We calculate a new set of p[] values and use that to get
             // our final gradient values.  Then, we interpolate between those gradients with the u value to get
             // 4 x-values.  Next, we interpolate between the 4 x-values with v to get 2 y-values.  Finally,
@@ -251,7 +248,5 @@ namespace Webster_HW_Project2_Asteroids
         {
             return v0 + t * (v1 - v0);
         }
-
     }
-
 }

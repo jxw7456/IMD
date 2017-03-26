@@ -289,6 +289,37 @@ namespace Webster_HW_Project2_Asteroids
                         game.state = GameState.GAMEOVER;
                     }
 
+                    if (fire.score == 1500 && Keyboard.GetState().IsKeyDown(Keys.F2))
+                    {
+                        //Reset key attritbutes
+                        MediaPlayer.Play(bgMusic);
+                        spaceShip.forward = new Vector2((float)Math.Cos(spaceShip.rotation), (float)Math.Sin(spaceShip.rotation));
+                        spaceShip.position.X = 400;
+                        spaceShip.position.Y = 200;
+                        spaceShip.timer = 0.0f;
+                        spaceShip.speed = 0.0f;
+                        spaceShip.rotation = 4.75f;
+                        spaceShip.isActive = true;
+                        spaceShip.i = 2;
+                        fire.score = 0;
+                        spaceShip.lives.Clear();
+                        asteroids.Clear();
+                        newAsteroids.Clear();
+
+                        //Create new list of lives
+                        for (int i = 0; i < 3; i++)
+                        {
+                            spaceShip.lives.Add(alive);
+                        }
+
+                        //Create new list of asteroids
+                        for (int i = 0; i < 5; i++)
+                        {
+                            asteroids.Add(new Follower(GraphicsDevice, rng, new Rectangle(0, 0, astroidImg.Width, astroidImg.Height), astroidImg));
+                        }
+                        game.state = GameState.START;
+                    }
+
                     break;
 
                 //GAME OVER MENU
@@ -356,7 +387,7 @@ namespace Webster_HW_Project2_Asteroids
                     {
                         spriteBatch.Draw(bgTwo, new Vector2(0, 0), Color.DarkGray);
                     }
-                    spriteBatch.DrawString(menu, "ASTEROIDS", new Vector2(200, 200), Color.White);
+                    spriteBatch.DrawString(menu, "ASTEROIDS", new Vector2(300, 200), Color.CadetBlue);
                     spriteBatch.DrawString(menu, "press 'F3' to start", new Vector2(200, 250), Color.White);
                     break;
 
@@ -418,7 +449,8 @@ namespace Webster_HW_Project2_Asteroids
 
                     if (fire.score == 1500)
                     {
-                        spriteBatch.DrawString(menu, "YOU WIN!", new Vector2(300, 200), Color.White);
+                        spriteBatch.DrawString(menu, "YOU WIN!", new Vector2(300, 200), Color.CadetBlue);
+                        spriteBatch.DrawString(menu, "press 'F2' for Main Menu", new Vector2(200, 250), Color.White);
                     }
                     break;
 
@@ -437,7 +469,7 @@ namespace Webster_HW_Project2_Asteroids
                     }
                     spriteBatch.DrawString(bold, "Score: " + fire.score, Vector2.One, Color.White);
                     spriteBatch.DrawString(menu, "GAME OVER", new Vector2(200, 200), Color.White);
-                    spriteBatch.DrawString(menu, "press 'F3' to start", new Vector2(200, 250), Color.White);
+                    spriteBatch.DrawString(menu, "press 'F3' to restart", new Vector2(200, 250), Color.White);
 
                     //draw all the asteroids
                     foreach (Follower f in asteroids)

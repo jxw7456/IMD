@@ -9,7 +9,7 @@ namespace Webster_HW_Project2_Asteroids
 {
     enum GameState
     {
-        START,
+        START = Keys.F2,
         GAME = Keys.F3,
         GAMEOVER
     }

@@ -144,7 +144,6 @@ namespace Webster_HW_Project2_Asteroids
                     {
                         Follower astSplit = new Follower(GraphicsDevice, rng.Next(0, 3), rng, astroidImg);
                         Follower astSplit2 = new Follower(GraphicsDevice, rng.Next(0, 3), rng, astroidImg);
-
                         asteroids.Add(astSplit);
                         asteroids.Add(astSplit2);
                         asteroids.RemoveAt(i);

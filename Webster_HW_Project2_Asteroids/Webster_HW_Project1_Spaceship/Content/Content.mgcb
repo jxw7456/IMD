@@ -115,3 +115,15 @@
 /processorParam:TextureFormat=Color
 /build:3asteroid.png
 
+#begin boldFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:boldFont.spritefont
+
+#begin menu.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:menu.spritefont
+

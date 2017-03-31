@@ -6,6 +6,7 @@ using System.Collections.Generic;
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
@@ -15,6 +16,7 @@ namespace Webster_HW_Project2_Asteroids
         public Vector2 bulletPos;
         public Vector2 origin;
         public Vector2 velocity;
+        public int score;
 
         public bool isActive;
 
@@ -22,6 +24,7 @@ namespace Webster_HW_Project2_Asteroids
         public Bullet()
         {
             origin = new Vector2(0, 0);
+            score = 0;
             isActive = false;
         }
 

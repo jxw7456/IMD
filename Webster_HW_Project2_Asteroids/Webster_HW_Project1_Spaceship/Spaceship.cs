@@ -2,22 +2,26 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
     class Spaceship
     {
-        //Fields
-        public float speed; //speed is constant
+        //Fields        
         float maxSpeed;
         float acceleration;
+        public int i;
+        public float speed; //speed is constant
         public float rotation;
         public float timer;
         public bool isActive;
+        public List<bool> lives;
         public Vector2 origin;
         public Vector2 forward;
         public Vector2 velocity;
@@ -27,13 +31,16 @@ namespace Webster_HW_Project2_Asteroids
         //Constructor
         public Spaceship(Texture2D shp)
         {
+            i = 2;
             isActive = true;
             ship = shp;
+            timer = 0.0f;
             speed = 0.0f;
             maxSpeed = 12.0f;
             acceleration = 0.2f;
             velocity = forward * speed;
             rotation = 4.75f;
+            lives = new List<bool>();
             position = new Vector2(400, 200);
             forward = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
             origin = new Vector2((ship.Width / 2), (ship.Height / 2));
@@ -99,8 +106,6 @@ namespace Webster_HW_Project2_Asteroids
                 //Movement
                 position += velocity;
             }
-
-
         }
 
         //Draw the ship

@@ -5,6 +5,7 @@ using System;
 //JaJuan Webster
 //Professor Cascioli
 //Asteroids!
+//ABOVE AND BEYOND: Background Music & Game States
 
 namespace Webster_HW_Project2_Asteroids
 {
@@ -15,15 +16,17 @@ namespace Webster_HW_Project2_Asteroids
         public int spawn;
         public Vector2 position;
         public Vector2 direction;
-        public Texture2D image;       
+        public Texture2D image;
+        public Rectangle rectangle;
         Random rng;
 
         //Constructor
-        public Follower(GraphicsDevice graphics, int spn, Random rand, Texture2D img)
+        public Follower(GraphicsDevice graphics, Random rand, Rectangle rect, Texture2D img)
         {
+            rectangle = rect;
             image = img;
             rng = rand;
-            spawn = spn;
+            spawn = rand.Next(0, 3);
             //Top
             if (spawn == 0)
             {
@@ -99,7 +102,13 @@ namespace Webster_HW_Project2_Asteroids
         //Draws the follower(asteroids)
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(image, position, null, null, new Vector2((image.Width / 2), (image.Height / 2)), 0.0f, null, color, SpriteEffects.None, 0);
+            spriteBatch.Draw(image, position, null, rectangle, new Vector2((image.Width / 2), (image.Height / 2)), 0.0f, null, color, SpriteEffects.None, 0);
+        }
+
+        //Draws the follower(asteroids)
+        public void DrawNewAsteroids(SpriteBatch spriteBatch, Color color)
+        {
+            spriteBatch.Draw(image, position, null, rectangle, new Vector2((image.Width / 2), (image.Height / 2)), 0.0f, new Vector2(0.5f, 0.5f), color, SpriteEffects.None, 0);
         }
     }
 }

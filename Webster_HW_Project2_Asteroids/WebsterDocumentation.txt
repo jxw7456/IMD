@@ -1,16 +1,20 @@
 JaJuan Webster
 IGME 202 Section 2
 
-Homework Project 1 - Spaceship!
+Homework Project 2 - Asteroids
 
 User Functionality:
- - Arrow Keys (WASD keys) create movement and rotation for the spaceship
+ - Arrow Keys (or WASD keys) to create movement and rotation for the spaceship
+ - Spacebar to shoot bullets from the face of the spaceship
+ - F3 to start and restart game
 
 Reasoning for design choices:
-This project utilizes vectors as a primary concept to recreating an Asteroids-type game scene.
+This project utilizes vectors, random number generators, and collision detection as the primary concepts 
+to creating an Asteroids-type game scene.
 
 Above and Beyond:
-For this project, I added a outerspace feel background music.
+For this project, I provided three separate game states: MENU, GAME, and GAMEOVER. Furthermore, when the 
+player wins (destroys all asteroids), the text "You Win" appears. Lastly, I added a outerspace feel background music.
 
 Requirements not completed:
 All requirements were completed.
@@ -18,6 +22,9 @@ All requirements were completed.
 Used assets:
 	Ship:
 	https://millionthvector.blogspot.com/p/free-sprites.html
+
+	Bullet:
+	https://donaldcarling.files.wordpress.com/2016/03/general-bullet.png?w=417&h=269&crop=1
 
 	Asteroid:
 	http://www.iconarchive.com/show/bumpy-planets-icons-by-zairaam/asteroid-icon.html

@@ -89,7 +89,7 @@ namespace Webster_MonoGame_PlayingWithForces
             foreach (Mover m in movers)
             {
                 Vector2 cursor = new Vector2((m.position.X - mouse.X), (m.position.Y - mouse.Y));
-                cursor *= 0.5f;
+                cursor *= 0.05f;
 
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {

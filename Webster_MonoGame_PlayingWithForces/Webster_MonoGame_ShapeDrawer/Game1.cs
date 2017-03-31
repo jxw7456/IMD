@@ -56,13 +56,13 @@ namespace Webster_MonoGame_PlayingWithForces
             shapeDrawer = new ShapeDrawer(spriteBatch, GraphicsDevice);
             img = Content.Load<Texture2D>("laser");
             movers = new List<Mover>();
-            startX = -50;
-            startY = -50;
-            screenWidth = GraphicsDevice.Viewport.Width - 50;
-            screenHeight = GraphicsDevice.Viewport.Height - 50;
-            for (int i = 0; i < 4; i++)
+            startX = 0;
+            startY = 0;
+            screenWidth = GraphicsDevice.Viewport.Width;
+            screenHeight = GraphicsDevice.Viewport.Height;
+            for (int i = 0; i < 30; i++)
             {
-                movers.Add(new Mover(rand.Next(0, screenWidth), rand.Next(0, screenHeight), new Vector2(rand.Next(4, 7), rand.Next(4, 7)), img, spriteBatch));
+                movers.Add(new Mover(rand.Next(startX, screenWidth), rand.Next(startY, screenHeight), new Vector2(rand.Next((int)0.5f, 10), rand.Next((int)0.5f, 10)), img, spriteBatch));
             }
         }
 
@@ -89,7 +89,7 @@ namespace Webster_MonoGame_PlayingWithForces
             foreach (Mover m in movers)
             {
                 Vector2 cursor = new Vector2((m.position.X - mouse.X), (m.position.Y - mouse.Y));
-                cursor *= 0.05f;
+                cursor *= 0.02f;
 
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
